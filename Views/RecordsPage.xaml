@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TicTacToe.Controls"
+             x:Class="TicTacToe.Views.RecordsPage"
+             Title="Kuulsuste hall"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F7F9FA">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="18" Padding="20, 16, 20, 24" MaximumWidthRequest="440">
+
+                <!-- 1. ТАКТИЛЬНЫЙ ХЕДЕР DUOLINGO -->
+                <Grid HeightRequest="56">
+                    <Border x:Name="HdrShadow"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#0E88C7"
+                            StrokeThickness="0"
+                            Margin="0, 4, 0, 0" />
+                    <Border x:Name="HdrSurface"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#1CB0F6"
+                            StrokeThickness="0"
+                            Padding="16, 0"
+                            Margin="0, 0, 0, 4">
+                        <Grid ColumnDefinitions="Auto, *, Auto" VerticalOptions="Center">
+                            <!-- Nupp tagasi / sulge -->
+                            <Border x:Name="BtnBackBorder"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#0E88C7"
+                                    StrokeThickness="0"
+                                    WidthRequest="36"
+                                    HeightRequest="36"
+                                    VerticalOptions="Center">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnBackClicked" />
+                                </Border.GestureRecognizers>
+                                <Label Text="✕"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <Label Grid.Column="1"
+                                   Text="KUULSUSTE HALL"
+                                   FontSize="17"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   TextColor="White" />
+
+                            <BoxView Grid.Column="2" WidthRequest="36" Color="Transparent" />
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- 2. ILUS 3D DUOLINGO STIILIS PLAAKET / PLACEHOLDER -->
+                <Grid Margin="0, 8, 0, 0">
+                    <!-- 3D alus / vari -->
+                    <Border StrokeShape="RoundRectangle 24"
+                            BackgroundColor="#E5E5E5"
+                            StrokeThickness="0"
+                            VerticalOptions="End"
+                            Margin="0, 6, 0, 0" />
+
+                    <!-- Esikülje kaart -->
+                    <Border StrokeShape="RoundRectangle 24"
+                            BackgroundColor="White"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="2"
+                            Padding="24, 40"
+                            VerticalOptions="Start"
+                            Margin="0, 0, 0, 6">
+                        <Label Text="Turniirid on tulekul!"
+                               FontSize="22"
+                               FontAttributes="Bold"
+                               TextColor="#2B2B2B"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+                    </Border>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- DUOLINGO FOOTER -->
+        <controls:DuolingoFooter Grid.Row="1" ActiveTab="Records" />
+
+    </Grid>
+
+</ContentPage>
+

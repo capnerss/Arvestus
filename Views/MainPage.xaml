@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TicTacToe.Controls"
+             x:Class="TicTacToe.Views.MainPage"
+             x:Name="RootPage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White">
+
+    <!-- Duolingo põhistruktuur: Päis (Header), Sisu (Content) ja Jalus (Footer) -->
+    <Grid RowDefinitions="Auto, *, Auto">
+
+        <!-- ==================== 1. DUOLINGO HEADER ==================== -->
+        <Border Grid.Row="0"
+                x:Name="HeaderBorder"
+                BackgroundColor="White"
+                Stroke="#E5E5E5"
+                StrokeThickness="0"
+                Padding="16, 8, 16, 10">
+            <VerticalStackLayout Spacing="10">
+                <!-- Ülemine staatuste riba: 4 võrdse laiusega veergu, puhas stiil ilma raamideta nagu jaluses -->
+                <Grid ColumnDefinitions="*, *, *, *"
+                      HeightRequest="40"
+                      VerticalOptions="Center">
+
+                    <!-- 1. Mängija Avatar (puhas ring ilma massiivsete raamideta, joondatud teiste elementidega) -->
+                    <Border Grid.Column="0"
+                            x:Name="HeaderAvatarPill"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="Transparent"
+                            StrokeThickness="0"
+                            WidthRequest="36"
+                            HeightRequest="36"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            ToolTipProperties.Text="Minu profiil">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnProfileClicked" />
+                        </Border.GestureRecognizers>
+                        <Image x:Name="ImgTopAvatar"
+                               Source="janes2.png"
+                               WidthRequest="36"
+                               HeightRequest="36"
+                               Aspect="AspectFit"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <!-- 2. Karikas / Trophy (Võidud / Statistika - puhas ikoon ja tekst) -->
+                    <Border Grid.Column="1"
+                            x:Name="HeaderTrophyPill"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="Transparent"
+                            StrokeThickness="0"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Padding="4, 2"
+                            ToolTipProperties.Text="Statistika">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnStatsClicked" />
+                        </Border.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                            <Image Source="duo_trophy.png"
+                                   WidthRequest="26"
+                                   HeightRequest="26"
+                                   Aspect="AspectFit"
+                                   VerticalOptions="Center" />
+                            <Label x:Name="LblStreakCount"
+                                   Text="0"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#FFC800"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+
+                    <!-- 3. Mündid / Coins (Pood - puhas ikoon ja tekst) -->
+                    <Border Grid.Column="2"
+                            x:Name="HeaderCoinsPill"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="Transparent"
+                            StrokeThickness="0"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Padding="4, 2"
+                            ToolTipProperties.Text="Pood">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnShopClicked" />
+                        </Border.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                            <Image Source="duo_coin.png"
+                                   WidthRequest="25"
+                                   HeightRequest="25"
+                                   Aspect="AspectFit"
+                                   VerticalOptions="Center" />
+                            <Label x:Name="LblGemsCount"
+                                   Text="500"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#FF9600"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+
+                    <!-- 4. Südamed / Elud (Puhas ikoon ja tekst) -->
+                    <Border Grid.Column="3"
+                            x:Name="HeaderHeartsPill"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="Transparent"
+                            StrokeThickness="0"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Padding="4, 2"
+                            ToolTipProperties.Text="Elud">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLivesClicked" />
+                        </Border.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                            <Image Source="duo_heart.png"
+                                   WidthRequest="25"
+                                   HeightRequest="25"
+                                   Aspect="AspectFit"
+                                   VerticalOptions="Center" />
+                            <Label x:Name="LblHeartsCount"
+                                   Text="10"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#FF4B4B"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+                </Grid>
+
+                <!-- Duolingo 3D Unit Banner -->
+                <Grid HeightRequest="72" Margin="0, 2, 0, 2">
+                    <Border x:Name="UnitBannerBase"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#0E88C7"
+                            StrokeThickness="0"
+                            VerticalOptions="End"
+                            HeightRequest="68" />
+                    <Border x:Name="UnitBanner"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#1CB0F6"
+                            StrokeThickness="0"
+                            VerticalOptions="Start"
+                            HeightRequest="68"
+                            Padding="16, 0">
+                        <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
+                                <Label x:Name="LblTurnIndicator"
+                                       Text="Käik: Mängija 1 (X)"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       VerticalOptions="Center" />
+                            </VerticalStackLayout>
+
+                            <!-- 3D Märkmiku / Juhise ikooninupuke -->
+                            <Grid Grid.Column="1" WidthRequest="42" HeightRequest="42" VerticalOptions="Center">
+                                <Border x:Name="BtnRulesBase"
+                                        StrokeShape="RoundRectangle 12"
+                                        BackgroundColor="#096596"
+                                        StrokeThickness="0"
+                                        VerticalOptions="End"
+                                        HeightRequest="40" />
+                                <Border x:Name="BtnRulesSurface"
+                                        StrokeShape="RoundRectangle 12"
+                                        BackgroundColor="#0E88C7"
+                                        StrokeThickness="0"
+                                        VerticalOptions="Start"
+                                        HeightRequest="40"
+                                        Padding="8">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnRulesClicked" />
+                                    </Border.GestureRecognizers>
+                                    <Image Source="duo_question.png"
+                                           Aspect="AspectFit" />
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- ==================== 2. MÄNGUVÄLI JA NUPUD ==================== -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="16"
+                                 Padding="20, 10, 20, 20"
+                                 MaximumWidthRequest="440"
+                                 HorizontalOptions="Center">
+
+
+                <!-- ==================== HEDGEHOG MASCOT + BOARD CONTAINER ==================== -->
+                <Grid HorizontalOptions="Center"
+                      WidthRequest="340">
+
+                    <!-- Hedgehog Mascot (Behind board: ZIndex="1") -->
+                    <VerticalStackLayout x:Name="HedgehogPeekContainer"
+                                         ZIndex="1"
+                                         HorizontalOptions="Center"
+                                         VerticalOptions="Start"
+                                         Spacing="4"
+                                         InputTransparent="False">
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnHedgehogPeekTapped" />
+                        </VerticalStackLayout.GestureRecognizers>
+
+                        <!-- Speech / Thought Bubble -->
+                        <Border x:Name="HedgehogPeekBubble"
+                                StrokeShape="RoundRectangle 14"
+                                BackgroundColor="White"
+                                Stroke="#E5E5E5"
+                                StrokeThickness="2"
+                                Padding="12, 6"
+                                HorizontalOptions="Center"
+                                Opacity="0"
+                                Scale="0.8">
+                            <Label x:Name="HedgehogPeekText"
+                                   Text="Mäng algab!"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#4B4B4B"
+                                   HorizontalOptions="Center" />
+                        </Border>
+
+                        <!-- Mascot Image (Larger size) -->
+                        <Image x:Name="HedgehogPeekImage"
+                               Source="hedgehog.png"
+                               WidthRequest="135"
+                               HeightRequest="135"
+                               Aspect="AspectFit"
+                               HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                    <!-- Mängulaud Duolingo ümarate 3D-kaartidega (In front of hedgehog: ZIndex="2") -->
+                    <!-- Mängulaud Duolingo ümarate 3D-kaartidega (In front of hedgehog: ZIndex="2") -->
+                    <Grid WidthRequest="326"
+                          HeightRequest="332"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Start"
+                          Margin="0, 95, 0, 8"
+                          ZIndex="2">
+                        <!-- 3D Board Base Plinth (Darker rim underneath) -->
+                        <Border x:Name="BoardBaseBorder"
+                                StrokeShape="RoundRectangle 26"
+                                BackgroundColor="#DCE6EC"
+                                StrokeThickness="0"
+                                VerticalOptions="End"
+                                HeightRequest="326"
+                                HorizontalOptions="Fill" />
+                        <!-- 3D Board Surface -->
+                        <Border x:Name="BoardBorder"
+                                Stroke="#E5E5E5"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 26"
+                                BackgroundColor="#F7F7F7"
+                                VerticalOptions="Start"
+                                HeightRequest="326"
+                                HorizontalOptions="Fill"
+                                Padding="8">
+                            <ContentView x:Name="BoardContainer"
+                                         HorizontalOptions="Fill"
+                                         VerticalOptions="Fill" />
+                        </Border>
+                    </Grid>
+                </Grid>
+
+                <!-- Duolingo stiilis suur 3D "UUS MÄNG" nupp -->
+                <Grid HeightRequest="56" Margin="0, 6, 0, 6">
+                    <Border x:Name="BtnNewGameBase"
+                            StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#0E88C7"
+                            StrokeThickness="0"
+                            VerticalOptions="End"
+                            HeightRequest="52" />
+                    <Border x:Name="BtnNewGameSurface"
+                            StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#1CB0F6"
+                            StrokeThickness="0"
+                            VerticalOptions="Start"
+                            HeightRequest="52">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnNewGameClicked" />
+                        </Border.GestureRecognizers>
+                        <Label Text="UUS MÄNG"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- ==================== 3. DUOLINGO FOOTER (Navigatsiooniriba) ==================== -->
+        <controls:DuolingoFooter Grid.Row="2" ActiveTab="Home" />
+
+        <!-- ==================== 4. DUOLINGO TEEMA HÜPIKAKEN (POPUP) ==================== -->
+        <Grid x:Name="ThemePopupOverlay"
+              Grid.RowSpan="3"
+              BackgroundColor="#85000000"
+              IsVisible="False"
+              Opacity="0">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCloseThemePopupClicked" />
+            </Grid.GestureRecognizers>
+
+            <!-- Hüpikakna kaart -->
+            <Border x:Name="ThemePopupCard"
+                    VerticalOptions="End"
+                    HorizontalOptions="Fill"
+                    MaximumWidthRequest="460"
+                    StrokeShape="RoundRectangle 26, 26, 0, 0"
+                    BackgroundColor="White"
+                    Stroke="#E5E5E5"
+                    StrokeThickness="2"
+                    Padding="20, 14, 20, 24">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnPopupCardClicked" />
+                </Border.GestureRecognizers>
+
+                <VerticalStackLayout Spacing="12">
+                    <!-- Käepide / Drag indicator -->
+                    <BoxView WidthRequest="40"
+                             HeightRequest="5"
+                             CornerRadius="2.5"
+                             Color="#E5E5E5"
+                             HorizontalOptions="Center" />
+
+                    <!-- Päis -->
+                    <Grid ColumnDefinitions="*, Auto" Margin="0, 2, 0, 2">
+                        <Label Grid.Column="0"
+                               Text="VALI TEEMA"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="#3C3C3C"
+                               VerticalOptions="Center" />
+
+                        <!-- Sulgemisnupp (X) -->
+                        <Border Grid.Column="1"
+                                StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#F7F7F7"
+                                Stroke="#E5E5E5"
+                                StrokeThickness="1.5"
+                                WidthRequest="34"
+                                HeightRequest="34"
+                                VerticalOptions="Center">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCloseThemePopupClicked" />
+                            </Border.GestureRecognizers>
+                            <Label Text="✕"
+                                   TextColor="#777777"
+                                   FontAttributes="Bold"
+                                   FontSize="15"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </Grid>
+
+                    <!-- Teemade kaardid -->
+                    <VerticalStackLayout Spacing="10" Margin="0, 2, 0, 6">
+
+                        <!-- 1. Sinine (Vaikimisi põhiteema) -->
+                        <Border x:Name="ThemeItem0"
+                                StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#F7F7F7"
+                                Stroke="#1CB0F6"
+                                StrokeThickness="3"
+                                Padding="16, 12">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSelectThemeOption" CommandParameter="0" />
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                                <Label Grid.Column="0" Text="Sinine" FontSize="15" FontAttributes="Bold" TextColor="#3C3C3C" VerticalOptions="Center" />
+                                <Label Grid.Column="1" x:Name="CheckTheme0" Text="✓" FontSize="20" FontAttributes="Bold" TextColor="#1CB0F6" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+
+                        <!-- 2. Must (Dark) -->
+                        <Border x:Name="ThemeItem1"
+                                StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#F7F7F7"
+                                Stroke="#E5E5E5"
+                                StrokeThickness="2"
+                                Padding="16, 12">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSelectThemeOption" CommandParameter="1" />
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                                <Label Grid.Column="0" Text="Must" FontSize="15" FontAttributes="Bold" TextColor="#3C3C3C" VerticalOptions="Center" />
+                                <Label Grid.Column="1" x:Name="CheckTheme1" Text="" FontSize="20" FontAttributes="Bold" TextColor="#1CB0F6" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+
+                        <!-- 3. Kuld (Gold) -->
+                        <Border x:Name="ThemeItem2"
+                                StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#F7F7F7"
+                                Stroke="#E5E5E5"
+                                StrokeThickness="2"
+                                Padding="16, 12">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSelectThemeOption" CommandParameter="2" />
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                                <Label Grid.Column="0" Text="Kuld" FontSize="15" FontAttributes="Bold" TextColor="#3C3C3C" VerticalOptions="Center" />
+                                <Label Grid.Column="1" x:Name="CheckTheme2" Text="" FontSize="20" FontAttributes="Bold" TextColor="#1CB0F6" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+
+                        <!-- 4. Roheline (Green - Tasuline 250 münti) -->
+                        <Border x:Name="ThemeItem3"
+                                StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#F7F7F7"
+                                Stroke="#E5E5E5"
+                                StrokeThickness="2"
+                                Padding="16, 12">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSelectThemeOption" CommandParameter="3" />
+                            </Border.GestureRecognizers>
+                            <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                                <Label Grid.Column="0" Text="Roheline" FontSize="15" FontAttributes="Bold" TextColor="#3C3C3C" VerticalOptions="Center" />
+                                <Label Grid.Column="1" x:Name="CheckTheme3" Text="" FontSize="20" FontAttributes="Bold" TextColor="#1CB0F6" VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+
+                    </VerticalStackLayout>
+
+                    <!-- Kinnitamise 3D-nupp -->
+                    <Border StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#58CC02"
+                            Stroke="#46A302"
+                            StrokeThickness="0"
+                            HeightRequest="50">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCloseThemePopupClicked" />
+                        </Border.GestureRecognizers>
+                        <Label Text="VALMIS"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               FontSize="15"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+        <!-- Bottom Sheet Ostu / Lukustuse Modal (Asendab DisplayAlerti teemade puhul) -->
+        <Grid Grid.RowSpan="3"
+              x:Name="ThemePurchaseOverlay"
+              IsVisible="False"
+              BackgroundColor="#70000000">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnThemePurchaseScrimTapped" />
+            </Grid.GestureRecognizers>
+
+            <Border x:Name="ThemePurchaseCard"
+                    VerticalOptions="End"
+                    StrokeShape="RoundRectangle 24, 24, 0, 0"
+                    BackgroundColor="White"
+                    Stroke="#E5E5E5"
+                    StrokeThickness="1"
+                    Padding="24, 16, 24, 28"
+                    MaximumWidthRequest="460"
+                    HorizontalOptions="Fill">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer />
+                </Border.GestureRecognizers>
+
+                <VerticalStackLayout Spacing="16">
+                    <!-- Tõmberiba -->
+                    <BoxView WidthRequest="40"
+                             HeightRequest="4"
+                             CornerRadius="2"
+                             BackgroundColor="#D1D5DB"
+                             HorizontalOptions="Center" />
+
+                    <!-- Ikoon ja teated -->
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Border x:Name="ThemeSheetIconBorder"
+                                StrokeShape="RoundRectangle 22"
+                                BackgroundColor="#FEF3C7"
+                                Stroke="#FCD34D"
+                                StrokeThickness="2"
+                                WidthRequest="70"
+                                HeightRequest="70"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                            <Image x:Name="ThemeSheetIconImage"
+                                   Source="duo_coin.png"
+                                   WidthRequest="44"
+                                   HeightRequest="44"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <Label x:Name="ThemeSheetTitle"
+                               Text="Kinnita ost"
+                               FontSize="19"
+                               FontAttributes="Bold"
+                               TextColor="#2B2B2B"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+
+                        <Label x:Name="ThemeSheetMessage"
+                               Text="Kas soovid osta...?"
+                               FontSize="14"
+                               TextColor="#6B7280"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"
+                               LineHeight="1.2" />
+                    </VerticalStackLayout>
+
+                    <!-- Nupud: Kinnitamine (Osta / Loobu) -->
+                    <VerticalStackLayout x:Name="ThemeSheetConfirmActions" Spacing="10">
+                        <Border StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#58CC02"
+                                Stroke="#46A302"
+                                StrokeThickness="0"
+                                HeightRequest="50">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnConfirmThemePurchaseClicked" />
+                            </Border.GestureRecognizers>
+                            <Label x:Name="LblThemeSheetBuyButton"
+                                   Text="OSTA"
+                                   TextColor="White"
+                                   FontAttributes="Bold"
+                                   FontSize="15"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <Border StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#F7F7F7"
+                                Stroke="#E5E5E5"
+                                StrokeThickness="1.5"
+                                HeightRequest="46">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCancelThemePurchaseClicked" />
+                            </Border.GestureRecognizers>
+                            <Label Text="LOOBU"
+                                   TextColor="#777777"
+                                   FontAttributes="Bold"
+                                   FontSize="14"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Nupud: Teade (Münte pole piisavalt) -->
+                    <VerticalStackLayout x:Name="ThemeSheetAlertActions" Spacing="10" IsVisible="False">
+                        <Border StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#FF9600"
+                                Stroke="#E58600"
+                                StrokeThickness="0"
+                                HeightRequest="50">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnGoToShopFromThemeSheetClicked" />
+                            </Border.GestureRecognizers>
+                            <Label Text="MINE POODI 🛒"
+                                   TextColor="White"
+                                   FontAttributes="Bold"
+                                   FontSize="15"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <Border StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#F7F7F7"
+                                Stroke="#E5E5E5"
+                                StrokeThickness="1.5"
+                                HeightRequest="46">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCancelThemePurchaseClicked" />
+                            </Border.GestureRecognizers>
+                            <Label Text="SELGUS"
+                                   TextColor="#777777"
+                                   FontAttributes="Bold"
+                                   FontSize="14"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

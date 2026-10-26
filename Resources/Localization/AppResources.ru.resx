@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="AppTitle" xml:space="preserve"><value>Крестики-Нолики</value></data>
+  <data name="SettingsTitle" xml:space="preserve"><value>НАСТРОЙКИ</value></data>
+  <data name="LanguageSelectTitle" xml:space="preserve"><value>ВЫБОР ЯЗЫКА</value></data>
+  <data name="BoardSizeTitle" xml:space="preserve"><value>РАЗМЕР ПОЛЯ</value></data>
+  <data name="DataManagementTitle" xml:space="preserve"><value>УПРАВЛЕНИЕ ДАННЫМИ</value></data>
+  <data name="ResetGameBtn" xml:space="preserve"><value>СБРОСИТЬ ИГРУ</value></data>
+  <data name="ResetGameConfirmTitle" xml:space="preserve"><value>⚠️ Сброс игры</value></data>
+  <data name="ResetGameConfirmMsg" xml:space="preserve"><value>Вы уверены, что хотите сбросить весь прогресс (статистику, покупки, настройки)?</value></data>
+  <data name="ResetYes" xml:space="preserve"><value>Да, сбросить</value></data>
+  <data name="ResetDoneTitle" xml:space="preserve"><value>Готово</value></data>
+  <data name="ResetDoneMsg" xml:space="preserve"><value>Все параметры успешно возвращены к исходным настройкам!</value></data>
+  <data name="RulesTitle" xml:space="preserve"><value>ПРАВИЛА ИГРЫ</value></data>
+  <data name="ThemesTitle" xml:space="preserve"><value>ТЕМЫ И ДИЗАЙН</value></data>
+  <data name="ProfileTitle" xml:space="preserve"><value>МОЙ ПРОФИЛЬ</value></data>
+  <data name="StatsTitle" xml:space="preserve"><value>СТАТИСТИКА</value></data>
+  <data name="TasksTitle" xml:space="preserve"><value>ЗАДАНИЯ И МИССИИ</value></data>
+  <data name="ShopTitle" xml:space="preserve"><value>МАГАЗИН</value></data>
+  <data name="LivesTitle" xml:space="preserve"><value>ЖИЗНИ И ЭНЕРГИЯ</value></data>
+  <data name="GameModesTitle" xml:space="preserve"><value>РЕЖИМЫ ИГРЫ</value></data>
+  <data name="ModeTwoPlayers" xml:space="preserve"><value>2 Игрока (Вдвоем)</value></data>
+  <data name="ModeEasy" xml:space="preserve"><value>Легкий</value></data>
+  <data name="ModeSmart" xml:space="preserve"><value>Умный</value></data>
+  <data name="ModeMaster" xml:space="preserve"><value>Мастер</value></data>
+  <data name="StartGame" xml:space="preserve"><value>НАЧАТЬ ИГРУ</value></data>
+  <data name="PlayAgain" xml:space="preserve"><value>ИГРАТЬ СНОВА</value></data>
+  <data name="Done" xml:space="preserve"><value>ГОТОВО</value></data>
+  <data name="Cancel" xml:space="preserve"><value>ОТМЕНА</value></data>
+  <data name="Save" xml:space="preserve"><value>СОХРАНИТЬ</value></data>
+  <data name="All" xml:space="preserve"><value>Все</value></data>
+  <data name="Pending" xml:space="preserve"><value>В процессе</value></data>
+  <data name="Completed" xml:space="preserve"><value>Выполнено</value></data>
+  <data name="NewTask" xml:space="preserve"><value>+ НОВОЕ ЗАДАНИЕ</value></data>
+  <data name="SyncRemote" xml:space="preserve"><value>СИНХРОНИЗИРОВАТЬ</value></data>
+  <data name="YourTurn" xml:space="preserve"><value>Твой ход</value></data>
+  <data name="BotTurn" xml:space="preserve"><value>Ход робота...</value></data>
+  <data name="Victory" xml:space="preserve"><value>ПОБЕДА! 🏆</value></data>
+  <data name="Defeat" xml:space="preserve"><value>ПОРАЖЕНИЕ! 💔</value></data>
+  <data name="Draw" xml:space="preserve"><value>НИЧЬЯ! 🤝</value></data>
+  <data name="Reward" xml:space="preserve"><value>Награда</value></data>
+  <data name="Coins" xml:space="preserve"><value>Монеты</value></data>
+  <data name="MoreOptions" xml:space="preserve"><value>ЕЩЁ ОПЦИИ</value></data>
+  <data name="AdventureTitle" xml:space="preserve"><value>ПРИКЛЮЧЕНИЕ</value></data>
+  <data name="HallOfFameTitle" xml:space="preserve"><value>ЗАЛ СЛАВЫ</value></data>
+  <data name="NewsTitle" xml:space="preserve"><value>НОВОСТИ</value></data>
+  <data name="ResultVictory" xml:space="preserve"><value>ПОБЕДА!</value></data>
+  <data name="MusicTitle" xml:space="preserve"><value>ФОНОВАЯ МУЗЫКА</value></data>
+  <data name="SoundEffectsTitle" xml:space="preserve"><value>ЗВУКОВЫЕ ЭФФЕКТЫ</value></data>
+  <data name="PlayMusicBtn" xml:space="preserve"><value>▶️ Старт</value></data>
+  <data name="PauseMusicBtn" xml:space="preserve"><value>⏸️ Пауза</value></data>
+  <data name="SoundOn" xml:space="preserve"><value>🔊 Вкл</value></data>
+  <data name="SoundOff" xml:space="preserve"><value>🔇 Выкл</value></data>
+  <data name="FavoriteBadgesTitle" xml:space="preserve"><value>ЛЮБИМЫЕ ЗНАЧКИ (ВИТРИНА)</value></data>
+  <data name="DragDropHint" xml:space="preserve"><value>Перетащите значок на пьедестал или нажмите</value></data>
+  <data name="SlotFirstPlace" xml:space="preserve"><value>1-е место</value></data>
+  <data name="SlotSecondPlace" xml:space="preserve"><value>2-е место</value></data>
+  <data name="SlotThirdPlace" xml:space="preserve"><value>3-е место</value></data>
+</root>

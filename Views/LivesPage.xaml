@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TicTacToe.Controls"
+             x:Class="TicTacToe.Views.LivesPage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="16"
+                                 Padding="20, 16, 20, 28"
+                                 MaximumWidthRequest="460">
+
+                <!-- Duolingo Stiilis Päis (3D) -->
+                <Grid HeightRequest="56">
+                    <Border x:Name="HdrShadow"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#0E88C7"
+                            StrokeThickness="0"
+                            Margin="0, 4, 0, 0" />
+                    <Border x:Name="LivesHeaderBorder"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#1CB0F6"
+                            StrokeThickness="0"
+                            Padding="16, 0"
+                            Margin="0, 0, 0, 4">
+                        <Grid ColumnDefinitions="Auto, *, Auto" VerticalOptions="Center">
+                            
+                            <!-- Close Button (Tagasi pealehele) -->
+                            <Border x:Name="LivesCloseBorder"
+                                    Grid.Column="0"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#0E88C7"
+                                    StrokeThickness="0"
+                                    WidthRequest="36"
+                                    HeightRequest="36"
+                                    VerticalOptions="Center"
+                                    ToolTipProperties.Text="Tagasi pealehele">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnBackClicked" />
+                                </Border.GestureRecognizers>
+                                <Label Text="✕"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <!-- Title -->
+                            <Label Grid.Column="1"
+                                   Text="ELUD JA TAASTUMINE"
+                                   FontSize="17"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+
+                            <!-- Right icon badge -->
+                            <Border x:Name="LivesIconBorder"
+                                    Grid.Column="2"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#0E88C7"
+                                    StrokeThickness="0"
+                                    WidthRequest="36"
+                                    HeightRequest="36"
+                                    VerticalOptions="Center">
+                                <Image Source="duo_heart.png"
+                                       WidthRequest="20"
+                                       HeightRequest="20"
+                                       Aspect="AspectFit"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- TAASTUMISE KAART: Taimer ja progressiriba -->
+                <Grid Margin="0, 4, 0, 0">
+                    <Border x:Name="CardTimerShadow"
+                            StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#E5E5E5"
+                            StrokeThickness="0"
+                            VerticalOptions="End"
+                            Margin="0, 4, 0, 0" />
+                    <Border x:Name="CardTimerBorder"
+                            StrokeShape="RoundRectangle 20"
+                            BackgroundColor="White"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="2"
+                            Padding="20, 18"
+                            VerticalOptions="Start"
+                            Margin="0, 0, 0, 4">
+                        <VerticalStackLayout Spacing="12">
+                            <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                                <Label x:Name="LblTimerTitle"
+                                       Text="Järgmise eluni:"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#4B4B4B" />
+                                <Label x:Name="LblTimerCountdown"
+                                       Grid.Column="1"
+                                       Text="09:59"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="#FF4B4B" />
+                            </Grid>
+
+                            <!-- Stylized Thick Recovery Progress Bar -->
+                            <Border x:Name="ProgressBarTrack"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#FEE2E2"
+                                    StrokeThickness="0"
+                                    HeightRequest="24"
+                                    Padding="2"
+                                    HorizontalOptions="Fill">
+                                <Grid x:Name="ProgressBarTrackGrid" HorizontalOptions="Fill">
+                                    <Border x:Name="RegenBarFill"
+                                            StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="#FF4B4B"
+                                            StrokeThickness="0"
+                                            HorizontalOptions="Start"
+                                            WidthRequest="20">
+                                        <BoxView HeightRequest="4"
+                                                 VerticalOptions="Start"
+                                                 HorizontalOptions="Fill"
+                                                 Color="#FFA4A4"
+                                                 Opacity="0.7"
+                                                 Margin="6, 2, 6, 0" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+                <!-- POOD: 3D nupp "OSTA ELUSID POEST" -->
+                <Grid HeightRequest="54" Margin="0, 4, 0, 8">
+                    <Border x:Name="BtnGoToShopShadow"
+                            StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#0E88C7"
+                            StrokeThickness="0"
+                            VerticalOptions="End"
+                            HeightRequest="50" />
+                    <Border x:Name="BtnGoToShop"
+                            StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#1CB0F6"
+                            StrokeThickness="0"
+                            VerticalOptions="Start"
+                            HeightRequest="50">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnGoToShopClicked" />
+                        </Border.GestureRecognizers>
+                        <Label Text="OSTA ELUSID POEST"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Duolingo Footer -->
+        <controls:DuolingoFooter Grid.Row="1" ActiveTab="More" />
+
+    </Grid>
+</ContentPage>
+

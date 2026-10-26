@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TicTacToe.Controls"
+             x:Class="TicTacToe.Views.StatsPage"
+             Title="Statistika"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="16" Padding="20,16,20,28" MaximumWidthRequest="460">
+
+                <!-- Duolingo Stiilis Päis (3D) -->
+                <Grid HeightRequest="56">
+                    <Border x:Name="HdrShadow"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#0E88C7"
+                            StrokeThickness="0"
+                            Margin="0, 4, 0, 0" />
+                    <Border x:Name="HdrSurface"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#1CB0F6"
+                            StrokeThickness="0"
+                            Padding="16, 0"
+                            Margin="0, 0, 0, 4">
+                        <Grid ColumnDefinitions="Auto, *, Auto" VerticalOptions="Center">
+                            <!-- Nupp tagasi / sulge -->
+                            <Border x:Name="StatsCloseBorder"
+                                    Grid.Column="0"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#0E88C7"
+                                    StrokeThickness="0"
+                                    WidthRequest="36"
+                                    HeightRequest="36"
+                                    VerticalOptions="Center"
+                                    ToolTipProperties.Text="Tagasi pealehele">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCloseClicked" />
+                                </Border.GestureRecognizers>
+                                <Label Text="✕"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <Label Grid.Column="1"
+                                   Text="MÄNGU STATISTIKA"
+                                   FontSize="17"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   TextColor="White" />
+
+                            <!-- Parempoolne karika ikoon -->
+                            <Border x:Name="StatsIconBorder"
+                                    Grid.Column="2"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#0E88C7"
+                                    StrokeThickness="0"
+                                    WidthRequest="36"
+                                    HeightRequest="36"
+                                    VerticalOptions="Center"
+                                    ToolTipProperties.Text="Statistika">
+                                <Image Source="duo_trophy.png"
+                                       WidthRequest="20"
+                                       HeightRequest="20"
+                                       Aspect="AspectFit"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- ÜHINE STATISTIKA PLAAT (KÕIK REAS) -->
+                <Grid Margin="0, 4, 0, 0">
+                    <!-- 3D alus / vari -->
+                    <Border x:Name="StatCardShadow"
+                            StrokeShape="RoundRectangle 22"
+                            BackgroundColor="#E5E5E5"
+                            StrokeThickness="0"
+                            VerticalOptions="End"
+                            Margin="0, 4, 0, 0" />
+
+                    <!-- Esikülje kaart -->
+                    <Border x:Name="StatCardSurface"
+                            StrokeShape="RoundRectangle 22"
+                            BackgroundColor="White"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="2"
+                            Padding="12, 18"
+                            VerticalOptions="Start"
+                            Margin="0, 0, 0, 4">
+                        <Grid ColumnDefinitions="*, Auto, *, Auto, *" VerticalOptions="Center">
+
+                            <!-- 1. Kokku mänge -->
+                            <VerticalStackLayout Grid.Column="0" Spacing="4" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label x:Name="LblTotalGamesTitle"
+                                       Text="Mänge kokku"
+                                       FontSize="12"
+                                       FontAttributes="Bold"
+                                       TextColor="#777777"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center" />
+                                <Label x:Name="LblTotalGames"
+                                       Text="0"
+                                       FontSize="28"
+                                       FontAttributes="Bold"
+                                       TextColor="#3C3C3C"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+
+                            <!-- Eraldaja 1 -->
+                            <BoxView x:Name="Divider1"
+                                     Grid.Column="1"
+                                     WidthRequest="1.5"
+                                     Color="#EFEFEF"
+                                     VerticalOptions="Fill"
+                                     Margin="0, 4" />
+
+                            <!-- 2. Võidud -->
+                            <VerticalStackLayout Grid.Column="2" Spacing="4" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label x:Name="LblP1WinsTitle"
+                                       Text="Võidud"
+                                       FontSize="12"
+                                       FontAttributes="Bold"
+                                       TextColor="#777777"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center" />
+                                <Label x:Name="LblP1Wins"
+                                       Text="0"
+                                       FontSize="28"
+                                       FontAttributes="Bold"
+                                       TextColor="#58CC02"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+
+                            <!-- Eraldaja 2 -->
+                            <BoxView x:Name="Divider2"
+                                     Grid.Column="3"
+                                     WidthRequest="1.5"
+                                     Color="#EFEFEF"
+                                     VerticalOptions="Fill"
+                                     Margin="0, 4" />
+
+                            <!-- 3. Viigid -->
+                            <VerticalStackLayout Grid.Column="4" Spacing="4" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label x:Name="LblDrawsTitle"
+                                       Text="Viigid"
+                                       FontSize="12"
+                                       FontAttributes="Bold"
+                                       TextColor="#777777"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center" />
+                                <Label x:Name="LblDraws"
+                                       Text="0"
+                                       FontSize="28"
+                                       FontAttributes="Bold"
+                                       TextColor="#FF9600"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center" />
+                            </VerticalStackLayout>
+
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- Duolingo Nupud -->
+                <VerticalStackLayout Spacing="10" Margin="0, 6, 0, 0">
+                    <Border x:Name="BtnResetBorder"
+                            StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#FFF0F0"
+                            Stroke="#FFD1D1"
+                            StrokeThickness="1.5"
+                            HeightRequest="48">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnResetStatsClicked" />
+                        </Border.GestureRecognizers>
+                        <Label x:Name="LblResetText"
+                               Text="TÜHJENDA STATISTIKA"
+                               TextColor="#FF4B4B"
+                               FontAttributes="Bold"
+                               FontSize="13"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Duolingo Footer navigatsioon -->
+        <controls:DuolingoFooter Grid.Row="1" ActiveTab="More" />
+
+    </Grid>
+
+</ContentPage>
+

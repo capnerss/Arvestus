@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Coin 3D bottom edge -->
+  <circle cx="24" cy="26" r="19" fill="#E5A700"/>
+  <!-- Coin main front face -->
+  <circle cx="24" cy="23" r="19" fill="#FFC800"/>
+  <!-- Inner groove ring -->
+  <circle cx="24" cy="23" r="15" fill="#FFD738" stroke="#E5A700" stroke-width="2"/>
+  <!-- Star emblem in center -->
+  <path d="M24 13.5L26.8 19.2L33 20.1L28.5 24.5L29.6 30.7L24 27.8L18.4 30.7L19.5 24.5L15 20.1L21.2 19.2L24 13.5Z" fill="#E5A700"/>
+  <!-- Highlight shine -->
+  <path d="M12 17C14.5 11 20 8 26 8C21 8 15 11 13 16L12 17Z" fill="#FFFFFF" opacity="0.6"/>
+</svg>

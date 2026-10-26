@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TicTacToe.Controls"
+             x:Class="TicTacToe.Views.RulesPage"
+             Title="Mängureeglid"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F7F9FA">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="16" Padding="20, 16, 20, 28" MaximumWidthRequest="460">
+
+                <!-- 1. Duolingo Stiilis 3D Päis -->
+                <Grid HeightRequest="56">
+                    <Border x:Name="HdrShadow"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#0E88C7"
+                            StrokeThickness="0"
+                            Margin="0, 4, 0, 0" />
+                    <Border x:Name="HdrSurface"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#1CB0F6"
+                            StrokeThickness="0"
+                            Padding="16, 0"
+                            Margin="0, 0, 0, 4">
+                        <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                            <Label Grid.Column="0"
+                                   Text="MÄNGUREEGLID"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"
+                                   Margin="36, 0, 0, 0"
+                                   VerticalOptions="Center"
+                                   TextColor="White" />
+
+                            <!-- Sulgemise rist paremal -->
+                            <Border x:Name="BtnCloseBorder"
+                                    Grid.Column="1"
+                                    HorizontalOptions="End"
+                                    StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#0E88C7"
+                                    StrokeThickness="0"
+                                    WidthRequest="36"
+                                    HeightRequest="36"
+                                    VerticalOptions="Center"
+                                    ToolTipProperties.Text="Tagasi pealehele">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCloseClicked" />
+                                </Border.GestureRecognizers>
+                                <Label Text="✕"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- 2. Siili treeneri kaart (Hedgehog Mascot Coach) -->
+                <Border Style="{StaticResource DuolingoCardStyle}">
+                    <Grid ColumnDefinitions="Auto, *" ColumnSpacing="14" VerticalOptions="Center">
+                        <Border StrokeShape="RoundRectangle 18"
+                                BackgroundColor="#F0FDF4"
+                                Stroke="#DCFCE7"
+                                StrokeThickness="1.5"
+                                WidthRequest="64"
+                                HeightRequest="64"
+                                VerticalOptions="Center">
+                            <Image Source="happy.png"
+                                   WidthRequest="54"
+                                   HeightRequest="54"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label x:Name="LblHedgehogAdvice"
+                                   Text="Saa 3 sümbolit ühte ritta horisontaalselt ja võit on sinu!"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light=#2B2B2B, Dark=White}"
+                                   LineHeight="1.2" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- 3. Mängulaua demonstratsioon (3D Tactical Board) -->
+                <Border Style="{StaticResource DuolingoCardStyle}">
+                    <VerticalStackLayout Spacing="14" HorizontalOptions="Center">
+                        <Label Text="VÕIDUKOMBINATSIOONIDE NÄIDIS"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="#777777"
+                               HorizontalOptions="Center" />
+
+                        <!-- Meie 3D mängulaud miniatuursena -->
+                        <Grid WidthRequest="220"
+                              HeightRequest="226"
+                              HorizontalOptions="Center">
+                            <!-- 3D Board Plinth (põhjaplaat) -->
+                            <Border StrokeShape="RoundRectangle 20"
+                                    BackgroundColor="#DCE6EC"
+                                    StrokeThickness="0"
+                                    VerticalOptions="End"
+                                    HeightRequest="220"
+                                    HorizontalOptions="Fill" />
+                            <!-- 3D Board Surface -->
+                            <Border StrokeShape="RoundRectangle 20"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="2"
+                                    BackgroundColor="#F7F7F7"
+                                    VerticalOptions="Start"
+                                    HeightRequest="220"
+                                    HorizontalOptions="Fill"
+                                    Padding="6">
+                                <ContentView x:Name="DemoBoardContainer"
+                                             HorizontalOptions="Fill"
+                                             VerticalOptions="Fill" />
+                            </Border>
+                        </Grid>
+
+                        <!-- 4 Kombinatsiooni nuppu (2x2 Grid, suuremad ja harmoonilised) -->
+                        <Grid RowDefinitions="Auto, Auto"
+                              ColumnDefinitions="*, *"
+                              RowSpacing="8"
+                              ColumnSpacing="8"
+                              Margin="0, 6, 0, 0">
+
+                            <!-- 1. Horisontaal -->
+                            <Grid Grid.Row="0" Grid.Column="0" HeightRequest="44">
+                                <Border x:Name="BtnHorizBase"
+                                        StrokeShape="RoundRectangle 12"
+                                        BackgroundColor="#1899D6"
+                                        StrokeThickness="0"
+                                        Margin="0, 3, 0, 0" />
+                                <Border x:Name="BtnHorizSurface"
+                                        StrokeShape="RoundRectangle 12"
+                                        BackgroundColor="#1CB0F6"
+                                        StrokeThickness="0"
+                                        Padding="10, 0"
+                                        Margin="0, 0, 0, 3">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnHorizTapped" />
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="LblHoriz"
+                                           Text="Horisontaal"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="White"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+                            </Grid>
+
+                            <!-- 2. Vertikaal -->
+                            <Grid Grid.Row="0" Grid.Column="1" HeightRequest="44">
+                                <Border x:Name="BtnVertBase"
+                                        StrokeShape="RoundRectangle 12"
+                                        BackgroundColor="#D1D5DB"
+                                        StrokeThickness="0"
+                                        Margin="0, 3, 0, 0" />
+                                <Border x:Name="BtnVertSurface"
+                                        StrokeShape="RoundRectangle 12"
+                                        BackgroundColor="#F3F4F6"
+                                        StrokeThickness="0"
+                                        Padding="10, 0"
+                                        Margin="0, 0, 0, 3">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnVertTapped" />
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="LblVert"
+                                           Text="Vertikaal"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="#4B4B4B"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+                            </Grid>
+
+                            <!-- 3. Diagonaal -->
+                            <Grid Grid.Row="1" Grid.Column="0" HeightRequest="44">
+                                <Border x:Name="BtnDiagBase"
+                                        StrokeShape="RoundRectangle 12"
+                                        BackgroundColor="#D1D5DB"
+                                        StrokeThickness="0"
+                                        Margin="0, 3, 0, 0" />
+                                <Border x:Name="BtnDiagSurface"
+                                        StrokeShape="RoundRectangle 12"
+                                        BackgroundColor="#F3F4F6"
+                                        StrokeThickness="0"
+                                        Padding="10, 0"
+                                        Margin="0, 0, 0, 3">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnDiagTapped" />
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="LblDiag"
+                                           Text="Diagonaal"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="#4B4B4B"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+                            </Grid>
+
+                            <!-- 4. Viik -->
+                            <Grid Grid.Row="1" Grid.Column="1" HeightRequest="44">
+                                <Border x:Name="BtnDrawBase"
+                                        StrokeShape="RoundRectangle 12"
+                                        BackgroundColor="#D1D5DB"
+                                        StrokeThickness="0"
+                                        Margin="0, 3, 0, 0" />
+                                <Border x:Name="BtnDrawSurface"
+                                        StrokeShape="RoundRectangle 12"
+                                        BackgroundColor="#F3F4F6"
+                                        StrokeThickness="0"
+                                        Padding="10, 0"
+                                        Margin="0, 0, 0, 3">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnDrawTapped" />
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="LblDraw"
+                                           Text="Viik"
+                                           FontSize="13"
+                                           FontAttributes="Bold"
+                                           TextColor="#4B4B4B"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Duolingo Footer navigatsioon -->
+        <controls:DuolingoFooter Grid.Row="1" ActiveTab="More" />
+
+    </Grid>
+
+</ContentPage>
+

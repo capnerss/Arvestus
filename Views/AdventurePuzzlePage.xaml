@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TicTacToe.Views.AdventurePuzzlePage"
+             x:Name="ThisPuzzlePage"
+             Title="Taktikaline Mõistatus"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F4FAFF">
+
+    <Grid RowDefinitions="Auto, Auto, *">
+
+        <!-- 1. ТАКТИЛЬНЫЙ ХЕДЕР DUOLINGO В ЦВЕТАХ ТЕМЫ -->
+        <Grid Grid.Row="0" HeightRequest="60" Margin="20, 14, 20, 4">
+            <!-- 3D Тень -->
+            <Border x:Name="HdrShadow"
+                    StrokeShape="RoundRectangle 18"
+                    BackgroundColor="#0E88C7"
+                    StrokeThickness="0"
+                    Margin="0, 4, 0, 0" />
+            <!-- Основная плашка хедера -->
+            <Border x:Name="HdrBase"
+                    StrokeShape="RoundRectangle 18"
+                    BackgroundColor="#1CB0F6"
+                    StrokeThickness="0"
+                    Padding="14, 0"
+                    Margin="0, 0, 0, 4">
+                <Grid ColumnDefinitions="Auto, *, Auto" VerticalOptions="Center">
+                    <!-- Кнопка выхода (Крестик) на левом краю -->
+                    <Border x:Name="BtnBackBorder"
+                            Grid.Column="0"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#0E88C7"
+                            StrokeThickness="0"
+                            WidthRequest="36"
+                            HeightRequest="36"
+                            VerticalOptions="Center"
+                            ToolTipProperties.Text="Tagasi seiklusse">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBackClicked" />
+                        </Border.GestureRecognizers>
+                        <Label Text="✕"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <!-- Заголовок уровня -->
+                    <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" Spacing="1">
+                        <Label x:Name="LblLevelTitle"
+                               Text="TASE 1 • VÕIDUKÄIK"
+                               FontSize="15"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               TextColor="White" />
+                        <Label x:Name="LblLevelBadge"
+                               Text="ÜLESANNE 1/5 • ★☆☆☆☆"
+                               FontSize="10"
+                               FontAttributes="Bold"
+                               TextColor="#E0F2FE"
+                               HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                    <!-- Счетчик жизней на правом краю -->
+                    <Border x:Name="LivesPillBorder"
+                            Grid.Column="2"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#0E88C7"
+                            StrokeThickness="0"
+                            Padding="8, 4"
+                            VerticalOptions="Center"
+                            ToolTipProperties.Text="Elud">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLivesClicked" />
+                        </Border.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                            <Image Source="duo_heart.png"
+                                   WidthRequest="18"
+                                   HeightRequest="18"
+                                   Aspect="AspectFit"
+                                   VerticalOptions="Center" />
+                            <Label x:Name="LblLivesCount"
+                                   Text="10"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- 1.1. DUOLINGO PROGRESS BAR (5 задач на уровень) -->
+        <ProgressBar x:Name="ProgressTaskBar"
+                     Grid.Row="1"
+                     Progress="0.2"
+                     ProgressColor="#1CB0F6"
+                     HeightRequest="7"
+                     Margin="22, 2, 22, 6" />
+
+        <!-- 2. ОСНОВНАЯ ОБЛАСТЬ ИГРЫ -->
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Spacing="16" Padding="20, 4, 20, 24" MaximumWidthRequest="440">
+
+                <!-- 2.1. БАННЕР МАСКОТА -->
+                <Border x:Name="CardMascot"
+                        StrokeShape="RoundRectangle 20"
+                        BackgroundColor="White"
+                        Stroke="#E5E5E5"
+                        StrokeThickness="2"
+                        Padding="14, 12">
+                    <Grid ColumnDefinitions="Auto, *" ColumnSpacing="14" VerticalOptions="Center">
+                        <!-- Аватар Маскота Ёжика -->
+                        <Border x:Name="MascotAvatarBorder"
+                                StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#F0F9FF"
+                                Stroke="#BEE3F8"
+                                StrokeThickness="1.5"
+                                WidthRequest="66"
+                                HeightRequest="66"
+                                VerticalOptions="Center">
+                            <Image x:Name="ImgMascot"
+                                   Source="happy.png"
+                                   WidthRequest="56"
+                                   HeightRequest="56"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <!-- Реплика Ёжика -->
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                            <Label x:Name="LblMascotHeader"
+                                   Text="ÜLESANNE 1 / 5"
+                                   FontSize="11"
+                                   FontAttributes="Bold"
+                                   TextColor="#1CB0F6" />
+                            <Label x:Name="LblMascotText"
+                                   Text="Leia võidukäik ja lõpeta mäng ühe liigutusega!"
+                                   FontSize="13"
+                                   TextColor="#4B4B4B"
+                                   FontAttributes="Bold"
+                                   LineHeight="1.2" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- 2.2. ИГРОВОЕ ПОЛЕ 3X3 В ТОЧНО ТАКОМ ЖЕ СТИЛЕ, КАК НА ОСНОВНОЙ СТРАНИЦЕ -->
+                <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <!-- Индикатор хода -->
+                    <Label x:Name="LblTurnIndicator"
+                           Text="Sinu kord (X) • Vali õige ruut"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           TextColor="#1CB0F6"
+                           HorizontalOptions="Center" />
+
+                    <!-- 3D Контейнер Доски (идентичен MainPage) -->
+                    <Grid WidthRequest="326"
+                          HeightRequest="332"
+                          HorizontalOptions="Center"
+                          VerticalOptions="Start">
+                        <!-- 3D Плинтус основы доски (BoardBaseBorder) -->
+                        <Border x:Name="BoardBaseBorder"
+                                StrokeShape="RoundRectangle 26"
+                                BackgroundColor="#B4DEF5"
+                                StrokeThickness="0"
+                                VerticalOptions="End"
+                                HeightRequest="326"
+                                HorizontalOptions="Fill" />
+                        <!-- Лицевая поверхность доски (BoardBorder) -->
+                        <Border x:Name="BoardBorder"
+                                Stroke="#BEE3F8"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 26"
+                                BackgroundColor="White"
+                                VerticalOptions="Start"
+                                HeightRequest="326"
+                                HorizontalOptions="Fill"
+                                Padding="8">
+                            <Grid x:Name="GridBoard"
+                                  HorizontalOptions="Fill"
+                                  VerticalOptions="Fill"
+                                  RowSpacing="8"
+                                  ColumnSpacing="8">
+                                <!-- Клетки создаются динамически в code-behind -->
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </VerticalStackLayout>
+
+                <!-- 2.3. КАРТОЧКА РЕЗУЛЬТАТА (ПОБЕДА / ПОРАЖЕНИЕ) -->
+                <Border x:Name="CardResult"
+                        StrokeShape="RoundRectangle 18"
+                        BackgroundColor="#E0F2FE"
+                        Stroke="#1CB0F6"
+                        StrokeThickness="2"
+                        Padding="16, 14"
+                        IsVisible="False">
+                    <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                        <!-- Заголовок -->
+                        <Label x:Name="LblResultTitle"
+                               Text="SUUREPÄRANE TÖÖ!"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="#1CB0F6"
+                               HorizontalOptions="Center" />
+
+                        <!-- Пояснение при победе -->
+                        <Label x:Name="LblResultSubtitle"
+                               Text="Mõistatus edukalt lahendatud!"
+                               FontSize="12"
+                               FontAttributes="Bold"
+                               TextColor="#4B4B4B"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+
+                        <!-- Значок минус одно сердце при ошибке -->
+                        <Border x:Name="BadgeMinusHeart"
+                                StrokeShape="RoundRectangle 12"
+                                BackgroundColor="#FEE2E2"
+                                Stroke="#FCA5A5"
+                                StrokeThickness="1"
+                                Padding="12, 6"
+                                HorizontalOptions="Center"
+                                IsVisible="False">
+                            <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                                <Label Text="-1"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="#DC2626"
+                                       VerticalOptions="Center" />
+                                <Image Source="duo_heart.png"
+                                       WidthRequest="20"
+                                       HeightRequest="20"
+                                       Aspect="AspectFit"
+                                       VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </Border>
+
+                        <!-- Кнопка действия в цвете темы -->
+                        <Grid HeightRequest="48" Margin="0, 4, 0, 0" HorizontalOptions="Center">
+                            <Border x:Name="BtnNextActionBase"
+                                    StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#0E88C7"
+                                    StrokeThickness="0"
+                                    VerticalOptions="End"
+                                    HeightRequest="45" />
+                            <Border x:Name="BtnNextAction"
+                                    StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#1CB0F6"
+                                    StrokeThickness="0"
+                                    Padding="28, 0"
+                                    VerticalOptions="Start"
+                                    HeightRequest="45">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnNextActionClicked" />
+                                </Border.GestureRecognizers>
+                                <Label x:Name="LblNextAction"
+                                       Text="JÄRGMINE ÜLESANNE ➔"
+                                       FontSize="13"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>
+

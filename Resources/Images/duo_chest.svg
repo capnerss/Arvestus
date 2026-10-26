@@ -1,0 +1,44 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Pedestal shadow -->
+  <ellipse cx="32" cy="56" rx="26" ry="6" fill="#000000" fill-opacity="0.25"/>
+  
+  <!-- Chest Base Shadow -->
+  <rect x="10" y="31" width="44" height="23" rx="7" fill="#B45309"/>
+  
+  <!-- Chest Base Body -->
+  <rect x="10" y="27" width="44" height="24" rx="7" fill="#F59E0B"/>
+  <rect x="13" y="30" width="38" height="18" rx="4" fill="#FBBF24"/>
+  
+  <!-- Wood slats highlight -->
+  <rect x="13" y="37" width="38" height="3" fill="#F59E0B" fill-opacity="0.5"/>
+  
+  <!-- Corner Straps (Golden metallic reinforcements) -->
+  <path d="M10 32C10 29.2386 12.2386 27 15 27V49C12.2386 49 10 46.7614 10 44V32Z" fill="#D97706"/>
+  <path d="M49 27C51.7614 27 54 29.2386 54 32V44C54 46.7614 51.7614 49 49 49V27Z" fill="#D97706"/>
+  
+  <!-- Chest Lid Shadow -->
+  <path d="M7 23C7 16 14 11 32 11C50 11 57 16 57 23C57 24.5 55.5 26 53.5 26H10.5C8.5 26 7 24.5 7 23Z" fill="#B45309"/>
+  
+  <!-- Chest Lid Body -->
+  <path d="M7 20C7 13 14 8 32 8C50 8 57 13 57 20C57 22.5 55 24 53 24H11C9 24 7 22.5 7 20Z" fill="#FBBF24"/>
+  
+  <!-- Lid Top Highlight Glow -->
+  <ellipse cx="32" cy="13" rx="18" ry="4" fill="#FEF08A" fill-opacity="0.7"/>
+  
+  <!-- Lid Straps -->
+  <path d="M12 24C10.5 24 9.5 23 9.5 21.5C9.5 16.5 13 12 17 10V24H12Z" fill="#D97706"/>
+  <path d="M52 24C53.5 24 54.5 23 54.5 21.5C54.5 16.5 51 12 47 10V24H52Z" fill="#D97706"/>
+  
+  <!-- Center Lock Plate Base -->
+  <rect x="26" y="21" width="12" height="15" rx="3" fill="#92400E"/>
+  <!-- Center Lock Plate Front -->
+  <rect x="27" y="22" width="10" height="13" rx="2.5" fill="#FEF08A"/>
+  <!-- Keyhole -->
+  <circle cx="32" cy="27" r="2" fill="#78350F"/>
+  <path d="M31 27.5L30.5 32H33.5L33 27.5H31Z" fill="#78350F"/>
+  
+  <!-- Sparkles -->
+  <path d="M56 12L57.5 7L59 12L64 13.5L59 15L57.5 20L56 15L51 13.5L56 12Z" fill="#FDE047"/>
+  <path d="M8 28L9 24L10 28L14 29L10 30L9 34L8 30L4 29L8 28Z" fill="#FDE047"/>
+  <circle cx="48" cy="8" r="1.5" fill="#FEF08A"/>
+</svg>

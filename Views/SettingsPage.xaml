@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TicTacToe.Controls"
+             xmlns:loc="clr-namespace:TicTacToe.Resources.Localization"
+             x:Class="TicTacToe.Views.SettingsPage"
+             Title="Seaded"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="16" Padding="20,16,20,28" MaximumWidthRequest="460">
+
+                <!-- Duolingo Stiilis Päis -->
+                <Border x:Name="SettingsHeaderBorder"
+                        StrokeShape="RoundRectangle 16"
+                        BackgroundColor="#1CB0F6"
+                        Stroke="#0E88C7"
+                        StrokeThickness="0"
+                        Padding="16, 12">
+                    <Grid ColumnDefinitions="Auto, *, Auto" VerticalOptions="Center">
+                        <!-- Hammasratta ikoon vasakul -->
+                        <Border x:Name="SettingsGearBorder"
+                                Grid.Column="0"
+                                StrokeShape="RoundRectangle 12"
+                                BackgroundColor="#0E88C7"
+                                StrokeThickness="0"
+                                WidthRequest="36"
+                                HeightRequest="36"
+                                VerticalOptions="Center">
+                            <Image Source="duo_gear.png"
+                                   WidthRequest="22"
+                                   HeightRequest="22"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <Label Grid.Column="1"
+                               Text="{loc:Translate SettingsTitle}"
+                               FontSize="19"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               TextColor="White" />
+
+                        <!-- Sulgemise rist (väljumine pealehele) -->
+                        <Border x:Name="SettingsCloseBorder"
+                                Grid.Column="2"
+                                StrokeShape="RoundRectangle 12"
+                                BackgroundColor="#0E88C7"
+                                StrokeThickness="0"
+                                WidthRequest="36"
+                                HeightRequest="36"
+                                VerticalOptions="Center"
+                                ToolTipProperties.Text="Tagasi pealehele">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCloseClicked" />
+                            </Border.GestureRecognizers>
+                            <Label Text="✕"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Kaart: Keelevalik / Language Selection (MAUI Styles ja AppThemeBinding) -->
+                <Border Style="{StaticResource DuolingoCardStyle}">
+                    <VerticalStackLayout Spacing="14">
+                        <Label Text="{loc:Translate LanguageSelectTitle}"
+                               Style="{StaticResource CardHeaderLabelStyle}" />
+
+                        <!-- 3 Chunky Segmented Nuppu: EST, ENG, RUS -->
+                        <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10" HeightRequest="52">
+                            <!-- Eesti -->
+                            <Border x:Name="BorderLangEt"
+                                    Grid.Column="0"
+                                    StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#58CC02"
+                                    Stroke="#46A302"
+                                    StrokeThickness="2">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnLangEtClicked" />
+                                </Border.GestureRecognizers>
+                                <Label x:Name="LblLangEt"
+                                       Text="🇪🇪 EST"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <!-- English -->
+                            <Border x:Name="BorderLangEn"
+                                    Grid.Column="1"
+                                    Style="{StaticResource SegmentInactiveButtonStyle}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnLangEnClicked" />
+                                </Border.GestureRecognizers>
+                                <Label x:Name="LblLangEn"
+                                       Text="🇬🇧 ENG"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="{AppThemeBinding Light=#4B4B4B, Dark=#E0E0E0}"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <!-- Русский -->
+                            <Border x:Name="BorderLangRu"
+                                    Grid.Column="2"
+                                    Style="{StaticResource SegmentInactiveButtonStyle}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnLangRuClicked" />
+                                </Border.GestureRecognizers>
+                                <Label x:Name="LblLangRu"
+                                       Text="🇷🇺 RUS"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="{AppThemeBinding Light=#4B4B4B, Dark=#E0E0E0}"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Kaart: Mänguvälja suurus (3x3, 4x4, 5x5) -->
+                <Border Style="{StaticResource DuolingoCardStyle}">
+                    <VerticalStackLayout Spacing="14">
+                        <Label Text="{loc:Translate BoardSizeTitle}"
+                               Style="{StaticResource CardHeaderLabelStyle}" />
+
+                        <!-- 3 Chunky Segmented Nuppu -->
+                        <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10" HeightRequest="52">
+                            <!-- 3x3 -->
+                            <Border x:Name="BorderBoard3"
+                                    Grid.Column="0"
+                                    StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#58CC02"
+                                    Stroke="#46A302"
+                                    StrokeThickness="2">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnBoardSize3Clicked" />
+                                </Border.GestureRecognizers>
+                                <Label x:Name="LblBoard3Title"
+                                       Text="3 x 3"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <!-- 4x4 -->
+                            <Border x:Name="BorderBoard4"
+                                    Grid.Column="1"
+                                    Style="{StaticResource SegmentInactiveButtonStyle}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnBoardSize4Clicked" />
+                                </Border.GestureRecognizers>
+                                <Label x:Name="LblBoard4Title"
+                                       Text="4 x 4"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{AppThemeBinding Light=#4B4B4B, Dark=#E0E0E0}"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <!-- 5x5 -->
+                            <Border x:Name="BorderBoard5"
+                                    Grid.Column="2"
+                                    Style="{StaticResource SegmentInactiveButtonStyle}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnBoardSize5Clicked" />
+                                </Border.GestureRecognizers>
+                                <Label x:Name="LblBoard5Title"
+                                       Text="5 x 5"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{AppThemeBinding Light=#4B4B4B, Dark=#E0E0E0}"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Kaart: Heli ja Muusika (Heli või muusika nõue) -->
+                <Border Style="{StaticResource DuolingoCardStyle}">
+                    <VerticalStackLayout Spacing="16">
+                        <!-- Taustamuusika (Play / Pause) -->
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="{loc:Translate MusicTitle}"
+                                   Style="{StaticResource CardHeaderLabelStyle}" />
+
+                            <Grid ColumnDefinitions="*, *" ColumnSpacing="10" HeightRequest="52">
+                                <!-- Nupp: Mängi / Play -->
+                                <Border x:Name="BorderMusicPlay"
+                                        Grid.Column="0"
+                                        StrokeShape="RoundRectangle 14"
+                                        BackgroundColor="#58CC02"
+                                        Stroke="#46A302"
+                                        StrokeThickness="2">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnMusicPlayClicked" />
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="LblMusicPlay"
+                                           Text="{loc:Translate PlayMusicBtn}"
+                                           FontSize="15"
+                                           FontAttributes="Bold"
+                                           TextColor="White"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+
+                                <!-- Nupp: Peata / Pause -->
+                                <Border x:Name="BorderMusicPause"
+                                        Grid.Column="1"
+                                        Style="{StaticResource SegmentInactiveButtonStyle}">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnMusicPauseClicked" />
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="LblMusicPause"
+                                           Text="{loc:Translate PauseMusicBtn}"
+                                           FontSize="15"
+                                           FontAttributes="Bold"
+                                           TextColor="{AppThemeBinding Light=#4B4B4B, Dark=#E0E0E0}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <!-- Heliefektid (Sees / Väljas) -->
+                        <VerticalStackLayout Spacing="10">
+                            <Label Text="{loc:Translate SoundEffectsTitle}"
+                                   Style="{StaticResource CardHeaderLabelStyle}" />
+
+                            <Grid ColumnDefinitions="*, *" ColumnSpacing="10" HeightRequest="52">
+                                <!-- Nupp: Sees / On -->
+                                <Border x:Name="BorderSoundOn"
+                                        Grid.Column="0"
+                                        StrokeShape="RoundRectangle 14"
+                                        BackgroundColor="#58CC02"
+                                        Stroke="#46A302"
+                                        StrokeThickness="2">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnSoundOnClicked" />
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="LblSoundOn"
+                                           Text="{loc:Translate SoundOn}"
+                                           FontSize="15"
+                                           FontAttributes="Bold"
+                                           TextColor="White"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+
+                                <!-- Nupp: Väljas / Off -->
+                                <Border x:Name="BorderSoundOff"
+                                        Grid.Column="1"
+                                        Style="{StaticResource SegmentInactiveButtonStyle}">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnSoundOffClicked" />
+                                    </Border.GestureRecognizers>
+                                    <Label x:Name="LblSoundOff"
+                                           Text="{loc:Translate SoundOff}"
+                                           FontSize="15"
+                                           FontAttributes="Bold"
+                                           TextColor="{AppThemeBinding Light=#4B4B4B, Dark=#E0E0E0}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
+                                </Border>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Kaart: Andmete haldus (Lähtestamine) -->
+                <Border Style="{StaticResource DuolingoCardStyle}">
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="{loc:Translate DataManagementTitle}"
+                               Style="{StaticResource CardHeaderLabelStyle}" />
+
+                        <Border StrokeShape="RoundRectangle 14"
+                                BackgroundColor="#FFF0F0"
+                                Stroke="#FFD1D1"
+                                StrokeThickness="1.5"
+                                HeightRequest="48">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnResetGameClicked" />
+                            </Border.GestureRecognizers>
+                            <Label Text="{loc:Translate ResetGameBtn}"
+                                   TextColor="#FF4B4B"
+                                   FontAttributes="Bold"
+                                   FontSize="13"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Duolingo Footer navigatsioon -->
+        <controls:DuolingoFooter Grid.Row="1" ActiveTab="More" />
+
+    </Grid>
+
+</ContentPage>
+

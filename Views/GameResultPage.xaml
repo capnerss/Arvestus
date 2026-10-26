@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TicTacToe.Views.GameResultPage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F7F7F7">
+
+    <Grid RowDefinitions="Auto, *, Auto, Auto"
+          Padding="16, 14, 16, 18"
+          MaximumWidthRequest="420"
+          HorizontalOptions="Center">
+
+        <!-- 1. Header Banner (3D Duolingo Stiil) -->
+        <Grid Grid.Row="0" HeightRequest="58">
+            <Border x:Name="BannerShadow"
+                    StrokeShape="RoundRectangle 18"
+                    BackgroundColor="#46A302"
+                    StrokeThickness="0"
+                    Margin="0, 4, 0, 0" />
+            <Border x:Name="BannerBorder"
+                    StrokeShape="RoundRectangle 18"
+                    BackgroundColor="#58CC02"
+                    StrokeThickness="0"
+                    Padding="16, 8"
+                    Margin="0, 0, 0, 4"
+                    HorizontalOptions="Fill">
+                <VerticalStackLayout Spacing="2" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label x:Name="BannerTitle"
+                           Text="PALJU ÕNNE!"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center" />
+                    <Label x:Name="BannerSubtitle"
+                           Text="Suurepärane lahing!"
+                           FontSize="13"
+                           TextColor="#E8F8D8"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+        <!-- 2. Hedgehog Animated Mascot (Major central part of the screen) -->
+        <Grid Grid.Row="1"
+              HorizontalOptions="Center"
+              VerticalOptions="Center"
+              Margin="0, 6, 0, 6">
+            <!-- Glow / Aura behind hedgehog -->
+            <Border x:Name="AuraCircle"
+                    StrokeShape="RoundRectangle 130"
+                    BackgroundColor="#E8F8D8"
+                    StrokeThickness="0"
+                    WidthRequest="230"
+                    HeightRequest="230"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Opacity="0.85" />
+
+            <!-- Giant Hedgehog Image -->
+            <Image x:Name="HedgehogImage"
+                   Source="happy.png"
+                   WidthRequest="220"
+                   HeightRequest="220"
+                   Aspect="AspectFit"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Grid>
+
+        <!-- 3. Speech Bubble + Coins & Lives in ONE ROW -->
+        <VerticalStackLayout Grid.Row="2"
+                             Spacing="12"
+                             HorizontalOptions="Fill"
+                             Margin="0, 0, 0, 14">
+
+            <!-- Speech Bubble From Hedgehog -->
+            <Border x:Name="SpeechBubble"
+                    StrokeShape="RoundRectangle 16"
+                    BackgroundColor="White"
+                    Stroke="#E5E5E5"
+                    StrokeThickness="2"
+                    Padding="16, 12">
+                <Label x:Name="SpeechMessage"
+                       Text="«Suurepärane võit! Sa tegid geniaalsed käigud!»"
+                       FontSize="13"
+                       TextColor="#2B2B2B"
+                       HorizontalTextAlignment="Center"
+                       LineHeight="1.25"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <!-- Rewards (Coins) and Cost (Hearts) in ONE SINGLE ROW without text descriptions -->
+            <Grid ColumnDefinitions="*, *"
+                  ColumnSpacing="12"
+                  WidthRequest="280"
+                  HorizontalOptions="Center">
+                
+                <!-- 1. Coins Pill (Column 0) -->
+                <Border Grid.Column="0"
+                        x:Name="CardCoinsEarned"
+                        StrokeShape="RoundRectangle 22"
+                        BackgroundColor="#FFFBEB"
+                        Stroke="#FCD34D"
+                        StrokeThickness="2"
+                        HeightRequest="46"
+                        Padding="14, 0">
+                    <HorizontalStackLayout Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image Source="duo_coin.png"
+                               WidthRequest="26"
+                               HeightRequest="26"
+                               Aspect="AspectFit"
+                               VerticalOptions="Center" />
+                        <Label x:Name="LblCoinsEarned"
+                               Text="+50"
+                               FontSize="19"
+                               FontAttributes="Bold"
+                               TextColor="#B45309"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- 2. Lives Pill (Column 1) -->
+                <Border Grid.Column="1"
+                        x:Name="CardHeartsSpent"
+                        StrokeShape="RoundRectangle 22"
+                        BackgroundColor="#FEF2F2"
+                        Stroke="#FECACA"
+                        StrokeThickness="2"
+                        HeightRequest="46"
+                        Padding="14, 0">
+                    <HorizontalStackLayout Spacing="8" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image Source="duo_heart.png"
+                               WidthRequest="24"
+                               HeightRequest="24"
+                               Aspect="AspectFit"
+                               VerticalOptions="Center" />
+                        <Label x:Name="LblHeartsSpent"
+                               Text="-1"
+                               FontSize="19"
+                               FontAttributes="Bold"
+                               TextColor="#DC2626"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+
+            </Grid>
+
+        </VerticalStackLayout>
+
+        <!-- 4. Bottom 3D Play Again Button -->
+        <Border Grid.Row="3"
+                x:Name="ButtonsContainer"
+                BackgroundColor="Transparent"
+                StrokeThickness="0"
+                Padding="0, 0, 0, 2"
+                HorizontalOptions="Fill">
+            <Grid HeightRequest="52">
+                <Border x:Name="BtnPlayAgainShadow"
+                        StrokeShape="RoundRectangle 16"
+                        BackgroundColor="#46A302"
+                        StrokeThickness="0"
+                        VerticalOptions="End"
+                        HeightRequest="48" />
+                <Border x:Name="BtnPlayAgain"
+                        StrokeShape="RoundRectangle 16"
+                        BackgroundColor="#58CC02"
+                        StrokeThickness="0"
+                        VerticalOptions="Start"
+                        HeightRequest="48">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnPlayAgainClicked" />
+                    </Border.GestureRecognizers>
+                    <Label x:Name="LblPlayAgain"
+                           Text="MÄNGI UUESTI"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Border>
+            </Grid>
+        </Border>
+
+    </Grid>
+</ContentPage>
+

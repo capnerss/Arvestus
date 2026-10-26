@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TicTacToe.Controls.DuolingoFooter">
+
+    <Border x:Name="FooterBorder"
+            BackgroundColor="White"
+            Stroke="#E5E5E5"
+            StrokeThickness="2"
+            Padding="14, 8, 14, 12">
+        <Grid ColumnDefinitions="*, *, *, *, *, *"
+              HorizontalOptions="Fill"
+              MaximumWidthRequest="460">
+
+            <!-- 1. Avaleht / Главная (Домик) -->
+            <Border Grid.Column="0"
+                    x:Name="TabHome"
+                    StrokeShape="RoundRectangle 14"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    WidthRequest="46"
+                    HeightRequest="44"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    ToolTipProperties.Text="Avaleht">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHomeTapped" />
+                </Border.GestureRecognizers>
+                <Image Source="duo_home.png"
+                       WidthRequest="28"
+                       HeightRequest="28"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <!-- 2. Seiklus / Приключение (Компас) -->
+            <Border Grid.Column="1"
+                    x:Name="TabAdventure"
+                    StrokeShape="RoundRectangle 14"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    WidthRequest="46"
+                    HeightRequest="44"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    ToolTipProperties.Text="Seiklus">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnAdventureTapped" />
+                </Border.GestureRecognizers>
+                <Image Source="duo_adventure.png"
+                       WidthRequest="28"
+                       HeightRequest="28"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <!-- 3. Edetabel / Зал славы (Кубок) -->
+            <Border Grid.Column="2"
+                    x:Name="TabRecords"
+                    StrokeShape="RoundRectangle 14"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    WidthRequest="46"
+                    HeightRequest="44"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    ToolTipProperties.Text="Edetabel">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnRecordsTapped" />
+                </Border.GestureRecognizers>
+                <Image Source="duo_trophy.png"
+                       WidthRequest="28"
+                       HeightRequest="28"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <!-- 4. Robot / Режимы игры (Робот) -->
+            <Border Grid.Column="3"
+                    x:Name="TabBot"
+                    StrokeShape="RoundRectangle 14"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    WidthRequest="46"
+                    HeightRequest="44"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    ToolTipProperties.Text="Robot">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBotTapped" />
+                </Border.GestureRecognizers>
+                <Image Source="duo_bot.png"
+                       WidthRequest="28"
+                       HeightRequest="28"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <!-- 5. Uudised / Новости (Блокнот) -->
+            <Border Grid.Column="4"
+                    x:Name="TabNews"
+                    StrokeShape="RoundRectangle 14"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    WidthRequest="46"
+                    HeightRequest="44"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    ToolTipProperties.Text="Uudised">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnNewsTapped" />
+                </Border.GestureRecognizers>
+                <Image Source="duo_notebook.png"
+                       WidthRequest="28"
+                       HeightRequest="28"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <!-- 6. Rohkem / Ещё (...) -->
+            <Border Grid.Column="5"
+                    x:Name="TabMore"
+                    StrokeShape="RoundRectangle 14"
+                    BackgroundColor="Transparent"
+                    StrokeThickness="0"
+                    WidthRequest="46"
+                    HeightRequest="44"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    ToolTipProperties.Text="Rohkem">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnMoreTapped" />
+                </Border.GestureRecognizers>
+                <Image Source="duo_more.png"
+                       WidthRequest="28"
+                       HeightRequest="28"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+        </Grid>
+    </Border>
+
+</ContentView>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sphere 1: Blue Gem (Themes & Board) -->
+  <!-- Bottom 3D shadow -->
+  <circle cx="10" cy="26" r="6" fill="#0E88C7"/>
+  <!-- Main Sphere -->
+  <circle cx="10" cy="24" r="6" fill="#1CB0F6"/>
+  <!-- Highlight Reflection -->
+  <ellipse cx="8.5" cy="21.5" rx="2.5" ry="1.8" fill="#FFFFFF" opacity="0.8"/>
+
+  <!-- Sphere 2: Gold Gem (Records & Coins) -->
+  <!-- Bottom 3D shadow -->
+  <circle cx="24" cy="26" r="6" fill="#D97706"/>
+  <!-- Main Sphere -->
+  <circle cx="24" cy="24" r="6" fill="#FFC800"/>
+  <!-- Highlight Reflection -->
+  <ellipse cx="22.5" cy="21.5" rx="2.5" ry="1.8" fill="#FFFFFF" opacity="0.8"/>
+
+  <!-- Sphere 3: Coral Red Gem (Rules & Hearts) -->
+  <!-- Bottom 3D shadow -->
+  <circle cx="38" cy="26" r="6" fill="#C5221F"/>
+  <!-- Main Sphere -->
+  <circle cx="38" cy="24" r="6" fill="#FF4B4B"/>
+  <!-- Highlight Reflection -->
+  <ellipse cx="36.5" cy="21.5" rx="2.5" ry="1.8" fill="#FFFFFF" opacity="0.8"/>
+</svg>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Newspaper Bottom 3D Bevel / Shade -->
+  <path d="M7 11C7 7.7 9.7 5 13 5H30L41 16V39C41 42.3 38.3 45 35 45H13C9.7 45 7 42.3 7 39V11Z" fill="#CBD5E1"/>
+  <!-- Newspaper Main White Body -->
+  <path d="M7 9C7 5.7 9.7 3 13 3H30L41 14V37C41 40.3 38.3 43 35 43H13C9.7 43 7 40.3 7 37V9Z" fill="#FFFFFF"/>
+  <path d="M7 9C7 5.7 9.7 3 13 3H30L41 14V37C41 40.3 38.3 43 35 43H13C9.7 43 7 40.3 7 37V9Z" stroke="#E2E8F0" stroke-width="1.5"/>
+
+  <!-- Folded Dog-Ear Corner 3D -->
+  <!-- Corner shadow -->
+  <path d="M30 3L41 14H33C31.3 14 30 12.7 30 11V3Z" fill="#94A3B8"/>
+  <!-- Corner fold face -->
+  <path d="M30 3L41 14H33.5C31.6 14 30 12.4 30 10.5V3Z" fill="#E2E8F0"/>
+
+  <!-- Masthead Header Bar (Blue Theme Banner) -->
+  <rect x="12" y="9" width="15" height="4.5" rx="2" fill="#1CB0F6"/>
+
+  <!-- News Headline Bar -->
+  <rect x="12" y="17" width="24" height="3" rx="1.5" fill="#334155"/>
+
+  <!-- Article Text Lines -->
+  <rect x="12" y="23" width="22" height="2" rx="1" fill="#94A3B8"/>
+  <rect x="12" y="28" width="18" height="2" rx="1" fill="#94A3B8"/>
+  <rect x="12" y="33" width="14" height="2" rx="1" fill="#94A3B8"/>
+
+  <!-- Vibrant "NEW / UPDATE" Badge in bottom right corner -->
+  <!-- Badge 3D shadow -->
+  <circle cx="34" cy="34" r="8.5" fill="#C5221F"/>
+  <!-- Badge body -->
+  <circle cx="34" cy="32.5" r="8.5" fill="#FF4B4B"/>
+  <circle cx="34" cy="32.5" r="7" fill="#FF6B6B"/>
+  <!-- Badge Star -->
+  <path d="M34 27.5L35.5 31L39.2 31.3L36.4 33.7L37.2 37.3L34 35.4L30.8 37.3L31.6 33.7L28.8 31.3L32.5 31L34 27.5Z" fill="#FFFFFF"/>
+</svg>

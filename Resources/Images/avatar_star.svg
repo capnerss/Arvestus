@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Star Avatar -->
+  <circle cx="32" cy="32" r="30" fill="#FFC800"/>
+  <!-- Star -->
+  <path d="M32 12L37.5 24L50.5 25.5L40.8 34.5L43.5 47.5L32 41L20.5 47.5L23.2 34.5L13.5 25.5L26.5 24L32 12Z" fill="#FFFFFF"/>
+  <!-- Eyes -->
+  <circle cx="28" cy="30" r="2.5" fill="#E5A700"/>
+  <circle cx="36" cy="30" r="2.5" fill="#E5A700"/>
+  <!-- Smile -->
+  <path d="M29 35C30.5 36.5 33.5 36.5 35 35" stroke="#E5A700" stroke-width="2" stroke-linecap="round"/>
+</svg>

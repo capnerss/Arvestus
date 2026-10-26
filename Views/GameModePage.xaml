@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TicTacToe.Controls"
+             x:Class="TicTacToe.Views.GameModePage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="14" Padding="20,16,20,28" MaximumWidthRequest="460">
+
+                <!-- Duolingo Stiilis Päis (3D) -->
+                <Grid HeightRequest="56">
+                    <Border x:Name="HdrShadow"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#0E88C7"
+                            StrokeThickness="0"
+                            Margin="0, 4, 0, 0" />
+                    <Border x:Name="ModeHeaderBorder"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#1CB0F6"
+                            StrokeThickness="0"
+                            Padding="16, 0"
+                            Margin="0, 0, 0, 4">
+                        <Label Text="MÄNGUREŽIIM"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               TextColor="White" />
+                    </Border>
+                </Grid>
+
+                <!-- Režiimide loend (ainult pealkirjad ilma ikoonide ja kirjeldusteta) -->
+                <VerticalStackLayout Spacing="10" Margin="0, 4, 0, 4">
+
+                    <!-- 1. Kaks inimest (2 mängijat) -->
+                    <Border x:Name="CardModeTwoPlayers"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#F7F7F7"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="2"
+                            HeightRequest="56"
+                            Padding="18, 0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSelectTwoPlayersClicked" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                            <Label x:Name="LblTitleTwoPlayers"
+                                   Text="2 Mängijat (Kahekesi)"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#3C3C3C"
+                                   VerticalOptions="Center" />
+
+                            <Label Grid.Column="1"
+                                   x:Name="CheckTwoPlayers"
+                                   Text="✓"
+                                   FontSize="22"
+                                   FontAttributes="Bold"
+                                   TextColor="#58CC02"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+
+                    <!-- 2. Bot: Lihtne -->
+                    <Border x:Name="CardModeBotEasy"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#F7F7F7"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="2"
+                            HeightRequest="56"
+                            Padding="18, 0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSelectBotEasyClicked" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                            <Label x:Name="LblTitleBotEasy"
+                                   Text="Lihtne"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#3C3C3C"
+                                   VerticalOptions="Center" />
+
+                            <Label Grid.Column="1"
+                                   x:Name="CheckBotEasy"
+                                   Text=""
+                                   FontSize="22"
+                                   FontAttributes="Bold"
+                                   TextColor="#58CC02"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+
+                    <!-- 3. Bot: Nutikas -->
+                    <Border x:Name="CardModeBotSmart"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#F7F7F7"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="2"
+                            HeightRequest="56"
+                            Padding="18, 0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSelectBotSmartClicked" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                            <Label x:Name="LblTitleBotSmart"
+                                   Text="Nutikas"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#3C3C3C"
+                                   VerticalOptions="Center" />
+
+                            <Label Grid.Column="1"
+                                   x:Name="CheckBotSmart"
+                                   Text=""
+                                   FontSize="22"
+                                   FontAttributes="Bold"
+                                   TextColor="#58CC02"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+
+                    <!-- 4. Bot: Meister -->
+                    <Border x:Name="CardModeBotMaster"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#F7F7F7"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="2"
+                            HeightRequest="56"
+                            Padding="18, 0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSelectBotMasterClicked" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                            <Label x:Name="LblTitleBotMaster"
+                                   Text="Meister"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   TextColor="#3C3C3C"
+                                   VerticalOptions="Center" />
+
+                            <Label Grid.Column="1"
+                                   x:Name="CheckBotMaster"
+                                   Text=""
+                                   FontSize="22"
+                                   FontAttributes="Bold"
+                                   TextColor="#58CC02"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <!-- Suur 3D "ALUSTA MÄNGU" Nupp -->
+                <Grid HeightRequest="52" Margin="0, 6, 0, 0">
+                    <Border x:Name="BtnStartGameShadow"
+                            StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#0E88C7"
+                            StrokeThickness="0"
+                            VerticalOptions="End"
+                            HeightRequest="48" />
+                    <Border x:Name="BtnStartGameBorder"
+                            StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#1CB0F6"
+                            StrokeThickness="0"
+                            VerticalOptions="Start"
+                            HeightRequest="48">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnStartGameClicked" />
+                        </Border.GestureRecognizers>
+                        <Label x:Name="LblStartGame"
+                               Text="ALUSTA MÄNGU"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               FontSize="15"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Duolingo Footer Navigatsioon -->
+        <controls:DuolingoFooter Grid.Row="1" ActiveTab="Bot" />
+
+    </Grid>
+
+</ContentPage>
+

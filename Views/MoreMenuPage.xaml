@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:loc="clr-namespace:TicTacToe.Resources.Localization"
+             x:Class="TicTacToe.Views.MoreMenuPage"
+             BackgroundColor="#80000000"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+        <!-- ФОН ДЛЯ ЗАКРЫТИЯ ПО КЛИКУ ВНЕ КАРТОЧКИ -->
+        <BoxView BackgroundColor="Transparent">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnBackdropTapped" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <!-- ВСПЛЫВАЮЩАЯ ШТОРКА (BOTTOM SHEET) В СТИЛЕ DUOLINGO -->
+        <Border x:Name="SheetContainer"
+                StrokeShape="RoundRectangle 24 24 0 0"
+                BackgroundColor="White"
+                Stroke="#E5E5E5"
+                StrokeThickness="2"
+                VerticalOptions="End"
+                HorizontalOptions="Center"
+                MaximumWidthRequest="460"
+                Padding="20, 12, 20, 22"
+                TranslationY="500">
+            <VerticalStackLayout Spacing="12">
+
+                <!-- Полоска-держатель сверху (Drag handle) -->
+                <BoxView WidthRequest="40"
+                         HeightRequest="5"
+                         CornerRadius="2.5"
+                         Color="#E5E5E5"
+                         HorizontalOptions="Center"
+                         Margin="0, 0, 0, 2" />
+
+                <!-- Заголовок -->
+                <Grid ColumnDefinitions="*, Auto" Margin="0, 0, 0, 2">
+                    <Label x:Name="LblMenuTitle"
+                           Text="{loc:Translate MoreOptions}"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           TextColor="#4B4B4B"
+                           VerticalOptions="Center" />
+                    <Border Grid.Column="1"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#F7F7F7"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="1.5"
+                            WidthRequest="32"
+                            HeightRequest="32"
+                            ToolTipProperties.Text="Sulge menüü">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCloseTapped" />
+                        </Border.GestureRecognizers>
+                        <Label Text="✕"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="#777777"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+                </Grid>
+
+                <ScrollView MaximumHeightRequest="420">
+                    <VerticalStackLayout Spacing="11">
+
+                        <!-- 1. MÄNGUREEGLID (ПРАВИЛА ИГРЫ) -->
+                        <Grid HeightRequest="52">
+                            <Border StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#1899D6"
+                                    StrokeThickness="0"
+                                    Margin="0, 4, 0, 0" />
+                            <Border x:Name="BtnRules"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#1CB0F6"
+                                    StrokeThickness="0"
+                                    Padding="16, 0"
+                                    Margin="0, 0, 0, 4">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnRulesTapped" />
+                                </Border.GestureRecognizers>
+                                <Label Text="{loc:Translate RulesTitle}"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+
+                        <!-- 2. TEEMAD JA DISAIN (ТЕМЫ И ДИЗАЙН) -->
+                        <Grid HeightRequest="52">
+                            <Border StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#AF3BCD"
+                                    StrokeThickness="0"
+                                    Margin="0, 4, 0, 0" />
+                            <Border x:Name="BtnThemes"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#CE82FF"
+                                    StrokeThickness="0"
+                                    Padding="16, 0"
+                                    Margin="0, 0, 0, 4">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnThemesTapped" />
+                                </Border.GestureRecognizers>
+                                <Label Text="{loc:Translate ThemesTitle}"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+
+                        <!-- 3. MINU PROFIIL (ПРОФИЛЬ ИГРОКА) -->
+                        <Grid HeightRequest="52">
+                            <Border StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#46A302"
+                                    StrokeThickness="0"
+                                    Margin="0, 4, 0, 0" />
+                            <Border x:Name="BtnProfile"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#58CC02"
+                                    StrokeThickness="0"
+                                    Padding="16, 0"
+                                    Margin="0, 0, 0, 4">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnProfileTapped" />
+                                </Border.GestureRecognizers>
+                                <Label Text="{loc:Translate ProfileTitle}"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+
+                        <!-- 4. MÄNGU STATISTIKA (СТАТИСТИКА) -->
+                        <Grid HeightRequest="52">
+                            <Border StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#D97706"
+                                    StrokeThickness="0"
+                                    Margin="0, 4, 0, 0" />
+                            <Border x:Name="BtnStats"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#FF9600"
+                                    StrokeThickness="0"
+                                    Padding="16, 0"
+                                    Margin="0, 0, 0, 4">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnStatsTapped" />
+                                </Border.GestureRecognizers>
+                                <Label Text="{loc:Translate StatsTitle}"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+
+                        <!-- 5. SEADED (НАСТРОЙКИ) -->
+                        <Grid HeightRequest="52">
+                            <Border StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#AFAFAF"
+                                    StrokeThickness="0"
+                                    Margin="0, 4, 0, 0" />
+                            <Border x:Name="BtnSettings"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#E5E5E5"
+                                    StrokeThickness="0"
+                                    Padding="16, 0"
+                                    Margin="0, 0, 0, 4">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnSettingsTapped" />
+                                </Border.GestureRecognizers>
+                                <Label Text="{loc:Translate SettingsTitle}"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="#4B4B4B"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+
+                        <!-- 6. ÜLESANDED JA MISSIOONID (SQLite) -->
+                        <Grid HeightRequest="52">
+                            <Border StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#0E88C7"
+                                    StrokeThickness="0"
+                                    Margin="0, 4, 0, 0" />
+                            <Border x:Name="BtnTasks"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#1CB0F6"
+                                    StrokeThickness="0"
+                                    Padding="16, 0"
+                                    Margin="0, 0, 0, 4">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnTasksTapped" />
+                                </Border.GestureRecognizers>
+                                <Label Text="{loc:Translate TasksTitle}"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+
+</ContentPage>
+

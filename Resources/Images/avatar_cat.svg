@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cat Avatar -->
+  <circle cx="32" cy="32" r="30" fill="#CE82FF"/>
+  <!-- Ears -->
+  <path d="M12 12L22 24L8 24Z" fill="#B15AE8"/>
+  <path d="M52 12L42 24L56 24Z" fill="#B15AE8"/>
+  <!-- Eyes -->
+  <ellipse cx="23" cy="30" rx="4" ry="5" fill="#3C3C3C"/>
+  <ellipse cx="41" cy="30" rx="4" ry="5" fill="#3C3C3C"/>
+  <circle cx="24.5" cy="28.5" r="1.5" fill="#FFFFFF"/>
+  <circle cx="42.5" cy="28.5" r="1.5" fill="#FFFFFF"/>
+  <!-- Nose & Mouth -->
+  <polygon points="30,37 34,37 32,40" fill="#FF8BA7"/>
+  <path d="M28 42C30 43.5 32 43 32 43C32 43 34 43.5 36 42" stroke="#3C3C3C" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="AppTitle" xml:space="preserve"><value>Trips-Traps-Trull</value></data>
+  <data name="SettingsTitle" xml:space="preserve"><value>SEADED</value></data>
+  <data name="LanguageSelectTitle" xml:space="preserve"><value>KEELEVALIK</value></data>
+  <data name="BoardSizeTitle" xml:space="preserve"><value>MÄNGUVÄLJA SUURUS</value></data>
+  <data name="DataManagementTitle" xml:space="preserve"><value>ANDMETE HALDUS</value></data>
+  <data name="ResetGameBtn" xml:space="preserve"><value>LÄHTESTA MÄNG ALGSEADETESSE</value></data>
+  <data name="ResetGameConfirmTitle" xml:space="preserve"><value>⚠️ Lähtesta mäng</value></data>
+  <data name="ResetGameConfirmMsg" xml:space="preserve"><value>Kas soovid kindlasti taastada mängu algseaded ja nullida kogu progressi (statistika, ostud, seaded)?</value></data>
+  <data name="ResetYes" xml:space="preserve"><value>Jah, lähtesta</value></data>
+  <data name="ResetDoneTitle" xml:space="preserve"><value>Valmis</value></data>
+  <data name="ResetDoneMsg" xml:space="preserve"><value>Kogu mäng on edukalt algseadetele taastatud!</value></data>
+  <data name="RulesTitle" xml:space="preserve"><value>MÄNGUREEGLID</value></data>
+  <data name="ThemesTitle" xml:space="preserve"><value>TEEMAD JA DISAIN</value></data>
+  <data name="ProfileTitle" xml:space="preserve"><value>MINU PROFIIL</value></data>
+  <data name="StatsTitle" xml:space="preserve"><value>MÄNGUSTATISTIKA</value></data>
+  <data name="TasksTitle" xml:space="preserve"><value>ÜLESANDED JA MISSIOONID</value></data>
+  <data name="ShopTitle" xml:space="preserve"><value>POOD</value></data>
+  <data name="LivesTitle" xml:space="preserve"><value>ELUD JA ENERGIA</value></data>
+  <data name="GameModesTitle" xml:space="preserve"><value>MÄNGUREŽIIMID</value></data>
+  <data name="ModeTwoPlayers" xml:space="preserve"><value>2 Mängijat (Kahekesi)</value></data>
+  <data name="ModeEasy" xml:space="preserve"><value>Lihtne</value></data>
+  <data name="ModeSmart" xml:space="preserve"><value>Nutikas</value></data>
+  <data name="ModeMaster" xml:space="preserve"><value>Meister</value></data>
+  <data name="StartGame" xml:space="preserve"><value>ALUSTA MÄNGU</value></data>
+  <data name="PlayAgain" xml:space="preserve"><value>MÄNGI UUESTI</value></data>
+  <data name="Done" xml:space="preserve"><value>VALMIS</value></data>
+  <data name="Cancel" xml:space="preserve"><value>LOOBU</value></data>
+  <data name="Save" xml:space="preserve"><value>SALVESTA</value></data>
+  <data name="All" xml:space="preserve"><value>Kõik</value></data>
+  <data name="Pending" xml:space="preserve"><value>Pooleli</value></data>
+  <data name="Completed" xml:space="preserve"><value>Tehtud</value></data>
+  <data name="NewTask" xml:space="preserve"><value>+ UUS ÜLESANNE</value></data>
+  <data name="SyncRemote" xml:space="preserve"><value>SÜNKROONI</value></data>
+  <data name="YourTurn" xml:space="preserve"><value>Sinu käik</value></data>
+  <data name="BotTurn" xml:space="preserve"><value>Roboti käik...</value></data>
+  <data name="Victory" xml:space="preserve"><value>VÕIT! 🏆</value></data>
+  <data name="Defeat" xml:space="preserve"><value>KAOTUS! 💔</value></data>
+  <data name="Draw" xml:space="preserve"><value>VIIK! 🤝</value></data>
+  <data name="Reward" xml:space="preserve"><value>Preemia</value></data>
+  <data name="Coins" xml:space="preserve"><value>Mündid</value></data>
+  <data name="MoreOptions" xml:space="preserve"><value>ROHKEM VALIKUID</value></data>
+  <data name="AdventureTitle" xml:space="preserve"><value>SEIKLUS</value></data>
+  <data name="HallOfFameTitle" xml:space="preserve"><value>KUULSUSTE HALL</value></data>
+  <data name="NewsTitle" xml:space="preserve"><value>UUDISED</value></data>
+  <data name="ResultVictory" xml:space="preserve"><value>VÕIT!</value></data>
+  <data name="MusicTitle" xml:space="preserve"><value>TAUSTAMUUSIKA</value></data>
+  <data name="SoundEffectsTitle" xml:space="preserve"><value>HELIEFEKTID</value></data>
+  <data name="PlayMusicBtn" xml:space="preserve"><value>▶️ Mängi</value></data>
+  <data name="PauseMusicBtn" xml:space="preserve"><value>⏸️ Peata</value></data>
+  <data name="SoundOn" xml:space="preserve"><value>🔊 Sees</value></data>
+  <data name="SoundOff" xml:space="preserve"><value>🔇 Väljas</value></data>
+  <data name="FavoriteBadgesTitle" xml:space="preserve"><value>LEMMIKMÄRGID (VITRIIN)</value></data>
+  <data name="DragDropHint" xml:space="preserve"><value>Lohista märk pjedestaalile või puuduta</value></data>
+  <data name="SlotFirstPlace" xml:space="preserve"><value>1. Koht</value></data>
+  <data name="SlotSecondPlace" xml:space="preserve"><value>2. Koht</value></data>
+  <data name="SlotThirdPlace" xml:space="preserve"><value>3. Koht</value></data>
+</root>

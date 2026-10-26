@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TicTacToe.Controls"
+             x:Class="TicTacToe.Views.ProfileSavedPage"
+             Title="Salvestatud"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F7F7F7">
+
+    <Grid RowDefinitions="*, Auto">
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="16" Padding="20,16,20,28" MaximumWidthRequest="440" HorizontalOptions="Center">
+
+                <!-- Päis -->
+                <Border StrokeShape="RoundRectangle 16"
+                        BackgroundColor="#58CC02"
+                        Stroke="#46A302"
+                        StrokeThickness="0"
+                        Padding="16,14">
+                    <Label Text="PROFIIL SALVESTATUD"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Border>
+
+                <!-- Peamine salvestatud profiili kaart -->
+                <Border StrokeShape="RoundRectangle 24"
+                        BackgroundColor="White"
+                        Stroke="#E5E5E5"
+                        StrokeThickness="2"
+                        Padding="24, 28"
+                        HorizontalOptions="Fill">
+                    <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+
+                        <!-- Uus avatar ilusa raamiga ja kinnitusmärgiga -->
+                        <Grid HorizontalOptions="Center" WidthRequest="130" HeightRequest="130">
+                            <!-- Aura / Hele taust -->
+                            <Border StrokeShape="RoundRectangle 65"
+                                    BackgroundColor="#E8F8D8"
+                                    StrokeThickness="0"
+                                    WidthRequest="130"
+                                    HeightRequest="130" />
+
+                            <!-- Avatar ise -->
+                            <Border StrokeShape="RoundRectangle 56"
+                                    Stroke="#58CC02"
+                                    StrokeThickness="4"
+                                    BackgroundColor="White"
+                                    WidthRequest="112"
+                                    HeightRequest="112"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                <Image x:Name="ImgSavedAvatar"
+                                       Source="janes2.png"
+                                       WidthRequest="92"
+                                       HeightRequest="92"
+                                       Aspect="AspectFit"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <!-- Roheline kinnitusmärge nurgas -->
+                            <Border StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#58CC02"
+                                    Stroke="White"
+                                    StrokeThickness="2.5"
+                                    WidthRequest="32"
+                                    HeightRequest="32"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="End">
+                                <Label Text="✓"
+                                       TextColor="White"
+                                       FontAttributes="Bold"
+                                       FontSize="17"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+
+                        <!-- Mängija nimi -->
+                        <Label x:Name="LblSavedName"
+                               Text="Mängija"
+                               FontSize="28"
+                               FontAttributes="Bold"
+                               TextColor="#3C3C3C"
+                               HorizontalOptions="Center" />
+
+                        <!-- Siili teade / Speech bubble -->
+                        <Border StrokeShape="RoundRectangle 20"
+                                BackgroundColor="#F7F7F7"
+                                Stroke="#E5E5E5"
+                                StrokeThickness="1.5"
+                                Padding="16, 14"
+                                Margin="0, 4, 0, 0">
+                            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="14" VerticalOptions="Center">
+                                <Image Source="hedgehog.png"
+                                       WidthRequest="72"
+                                       HeightRequest="72"
+                                       Aspect="AspectFit"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="1"
+                                       Text="«Vinge! Sinu uus profiil näeb suurepärane välja ja on lahinguteks valmis!»"
+                                       FontSize="16"
+                                       TextColor="#3C3C3C"
+                                       FontAttributes="Italic"
+                                       LineHeight="1.25"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </Border>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Tegevuste nupud -->
+                <VerticalStackLayout Spacing="10" Margin="0, 6, 0, 0">
+                    <!-- Duolingo nupp "JÄTKA MÄNGU" -->
+                    <Border StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#58CC02"
+                            Stroke="#46A302"
+                            StrokeThickness="0"
+                            HeightRequest="52">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnContinueClicked" />
+                        </Border.GestureRecognizers>
+                        <Label Text="JÄTKA MÄNGU"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               FontSize="15"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <!-- Nupp "MUUDA VEEL" -->
+                    <Border StrokeShape="RoundRectangle 16"
+                            BackgroundColor="White"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="2"
+                            HeightRequest="48">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnEditAgainClicked" />
+                        </Border.GestureRecognizers>
+                        <Label Text="MUUDA VEEL"
+                               TextColor="#777777"
+                               FontAttributes="Bold"
+                               FontSize="14"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Duolingo Footer navigatsioon -->
+        <controls:DuolingoFooter Grid.Row="1" ActiveTab="More" />
+    </Grid>
+
+</ContentPage>
+

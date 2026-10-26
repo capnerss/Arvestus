@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TicTacToe.Controls"
+             x:Class="TicTacToe.Views.AdventurePage"
+             x:Name="ThisPage"
+             Title="Seiklus"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#131F24">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+
+        <!-- 1. ТАКТИЛЬНЫЙ ХЕДЕР DUOLINGO -->
+        <Grid Grid.Row="0" HeightRequest="60" Margin="20, 14, 20, 8">
+            <Border x:Name="HdrShadow"
+                    StrokeShape="RoundRectangle 18"
+                    BackgroundColor="#182024"
+                    StrokeThickness="0"
+                    Margin="0, 4, 0, 0" />
+            <Border x:Name="HdrSurface"
+                    StrokeShape="RoundRectangle 18"
+                    BackgroundColor="#2B383E"
+                    StrokeThickness="0"
+                    Padding="14, 0"
+                    Margin="0, 0, 0, 4">
+                <Grid ColumnDefinitions="Auto, *, Auto" VerticalOptions="Center">
+                    <!-- Кнопка назад / закрыть (Крестик) -->
+                    <Border x:Name="BtnBackBorder"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#182024"
+                            StrokeThickness="0"
+                            WidthRequest="36"
+                            HeightRequest="36"
+                            VerticalOptions="Center"
+                            ToolTipProperties.Text="Tagasi pealehele">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBackClicked" />
+                        </Border.GestureRecognizers>
+                        <Label Text="✕"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <!-- Заголовок -->
+                    <Label x:Name="LblHeaderTitle"
+                           Grid.Column="1"
+                           Text="SEIKLUS"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           TextColor="White" />
+
+                    <!-- Баланс монет -->
+                    <Border x:Name="CoinsPillBorder"
+                            Grid.Column="2"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#182024"
+                            StrokeThickness="0"
+                            Padding="8, 4"
+                            VerticalOptions="Center">
+                        <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                            <Image Source="duo_coin.png"
+                                   WidthRequest="18"
+                                   HeightRequest="18"
+                                   Aspect="AspectFit"
+                                   VerticalOptions="Center" />
+                            <Label x:Name="LblCoinBalance"
+                                   Text="500"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- 2. ОСНОВНОЙ КОНТЕНТ (ИЗВИЛИСТАЯ ТРОПА ПРИКЛЮЧЕНИЙ) -->
+        <Grid Grid.Row="1">
+
+            <ScrollView x:Name="AdventureScroll">
+                <VerticalStackLayout Spacing="16" Padding="16, 6, 16, 32" MaximumWidthRequest="420" HorizontalOptions="Center">
+
+                    <!-- 2.1. КОМПАКТНЫЙ БАННЕР БИОМА И ПРОГРЕССА -->
+                    <Border x:Name="BannerCard"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#1B272C"
+                            Stroke="#2B383E"
+                            StrokeThickness="1.5"
+                            Padding="14, 12">
+                        <VerticalStackLayout Spacing="8">
+                            <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                                <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                                    <Border StrokeShape="RoundRectangle 8"
+                                            BackgroundColor="#58CC02"
+                                            StrokeThickness="0"
+                                            Padding="8, 3">
+                                        <Label Text="PEATÜKK 1"
+                                               FontSize="11"
+                                               FontAttributes="Bold"
+                                               TextColor="White" />
+                                    </Border>
+                                    <Label x:Name="LblBiomeTitle"
+                                           Text="Tarkuse Mets"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="White"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+
+                                <Label x:Name="LblChapterProgressText"
+                                       Grid.Column="1"
+                                       Text="0 / 5"
+                                       FontSize="13"
+                                       FontAttributes="Bold"
+                                       TextColor="#58CC02"
+                                       VerticalOptions="Center" />
+                            </Grid>
+
+                            <!-- Прогресс-бар -->
+                            <ProgressBar x:Name="ProgressChapter"
+                                         Progress="0.0"
+                                         ProgressColor="#58CC02"
+                                         HeightRequest="8" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- 2.2. ИЗВИЛИСТАЯ КАРТА УРОВНЕЙ DUOLINGO (S-CURVE TRAIL) -->
+                    <Grid x:Name="MapContainer"
+                          WidthRequest="380"
+                          HeightRequest="670"
+                          HorizontalOptions="Center">
+
+                        <!-- Плавная соединяющая линия тропы -->
+                        <Path x:Name="TrailPath"
+                              Stroke="#2B383E"
+                              StrokeThickness="14"
+                              StrokeLineCap="Round"
+                              StrokeLineJoin="Round"
+                              Aspect="None"
+                              HorizontalOptions="Start"
+                              VerticalOptions="Start"
+                              Data="M 235,55 C 235,100 135,115 135,160 C 135,215 130,310 140,365 C 145,420 235,425 235,475 C 235,530 190,535 190,590" />
+
+                        <!-- ================= УЗЕЛ 1 (СТАРТ) ================= -->
+                        <Grid x:Name="Node1Container"
+                              HorizontalOptions="Start"
+                              VerticalOptions="Start"
+                              Margin="197, 20, 0, 0"
+                              WidthRequest="76"
+                              HeightRequest="76">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLevel1Clicked" />
+                            </Grid.GestureRecognizers>
+
+                            <!-- 3D Тень -->
+                            <Border x:Name="ShadowNode1"
+                                    StrokeShape="RoundRectangle 38"
+                                    BackgroundColor="#B45309"
+                                    StrokeThickness="0"
+                                    Margin="0, 5, 0, 0" />
+                            <!-- 3D Грань -->
+                            <Border x:Name="BaseNode1"
+                                    StrokeShape="RoundRectangle 38"
+                                    BackgroundColor="#FFC800"
+                                    StrokeThickness="0"
+                                    Margin="0, 0, 0, 5" />
+                        </Grid>
+
+                        <!-- ================= УЗЕЛ 2 ================= -->
+                        <Grid x:Name="Node2Container"
+                              HorizontalOptions="Start"
+                              VerticalOptions="Start"
+                              Margin="97, 125, 0, 0"
+                              WidthRequest="76"
+                              HeightRequest="76">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLevel2Clicked" />
+                            </Grid.GestureRecognizers>
+
+                            <Border x:Name="ShadowNode2"
+                                    StrokeShape="RoundRectangle 38"
+                                    BackgroundColor="#B45309"
+                                    StrokeThickness="0"
+                                    Margin="0, 5, 0, 0" />
+                            <Border x:Name="BaseNode2"
+                                    StrokeShape="RoundRectangle 38"
+                                    BackgroundColor="#FFC800"
+                                    StrokeThickness="0"
+                                    Margin="0, 0, 0, 5" />
+                        </Grid>
+
+                        <!-- ================= СТАТИЧНАЯ КАРТИНКА ЛИСЫ (БОСС 1-Й ГЛАВЫ) ================= -->
+                        <Image Source="rebane2.png"
+                               WidthRequest="120"
+                               HeightRequest="120"
+                               Aspect="AspectFit"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               Margin="215, 205, 0, 0" />
+
+                        <!-- ================= УЗЕЛ 3 ================= -->
+                        <Grid x:Name="Node3Container"
+                              HorizontalOptions="Start"
+                              VerticalOptions="Start"
+                              Margin="102, 330, 0, 0"
+                              WidthRequest="76"
+                              HeightRequest="76">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLevel3Clicked" />
+                            </Grid.GestureRecognizers>
+
+                            <Border x:Name="ShadowNode3"
+                                    StrokeShape="RoundRectangle 38"
+                                    BackgroundColor="#B45309"
+                                    StrokeThickness="0"
+                                    Margin="0, 5, 0, 0" />
+                            <Border x:Name="BaseNode3"
+                                    StrokeShape="RoundRectangle 38"
+                                    BackgroundColor="#FFC800"
+                                    StrokeThickness="0"
+                                    Margin="0, 0, 0, 5" />
+                        </Grid>
+
+                        <!-- ================= УЗЕЛ 4 ================= -->
+                        <Grid x:Name="Node4Container"
+                              HorizontalOptions="Start"
+                              VerticalOptions="Start"
+                              Margin="197, 440, 0, 0"
+                              WidthRequest="76"
+                              HeightRequest="76">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLevel4Clicked" />
+                            </Grid.GestureRecognizers>
+
+                            <Border x:Name="ShadowNode4"
+                                    StrokeShape="RoundRectangle 38"
+                                    BackgroundColor="#B45309"
+                                    StrokeThickness="0"
+                                    Margin="0, 5, 0, 0" />
+                            <Border x:Name="BaseNode4"
+                                    StrokeShape="RoundRectangle 38"
+                                    BackgroundColor="#FFC800"
+                                    StrokeThickness="0"
+                                    Margin="0, 0, 0, 5" />
+                        </Grid>
+
+                        <!-- ================= УЗЕЛ 5 ================= -->
+                        <Grid x:Name="Node5Container"
+                              HorizontalOptions="Start"
+                              VerticalOptions="Start"
+                              Margin="150, 550, 0, 0"
+                              WidthRequest="80"
+                              HeightRequest="80">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLevel5Clicked" />
+                            </Grid.GestureRecognizers>
+
+                            <Border x:Name="ShadowNode5"
+                                    StrokeShape="RoundRectangle 40"
+                                    BackgroundColor="#B45309"
+                                    StrokeThickness="0"
+                                    Margin="0, 5, 0, 0" />
+                            <Border x:Name="BaseNode5"
+                                    StrokeShape="RoundRectangle 40"
+                                    BackgroundColor="#FFC800"
+                                    StrokeThickness="0"
+                                    Margin="0, 0, 0, 5" />
+                        </Grid>
+
+                    </Grid>
+
+                    <!-- Блок следующей главы (Peatükk 2) -->
+                    <Border x:Name="Chapter2Card"
+                            StrokeShape="RoundRectangle 18"
+                            BackgroundColor="#1B272C"
+                            Stroke="#2B383E"
+                            StrokeThickness="1.5"
+                            Padding="16, 14"
+                            Margin="0, 10, 0, 10">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnChapter2Clicked" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="Auto, *, Auto" VerticalOptions="Center">
+                            <Border StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#2B383E"
+                                    StrokeThickness="0"
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    VerticalOptions="Center">
+                                <Image Source="duo_lock.png"
+                                       WidthRequest="22"
+                                       HeightRequest="22"
+                                       Aspect="AspectFit"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout Grid.Column="1" Spacing="2" Margin="12, 0, 0, 0" VerticalOptions="Center">
+                                <Label Text="PEATÜKK 2"
+                                       FontSize="11"
+                                       FontAttributes="Bold"
+                                       TextColor="#94A3B8" />
+                                <Label x:Name="LblChapter2Title"
+                                       Text="Salapärane Soo"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="#CBD5E1" />
+                            </VerticalStackLayout>
+
+                            <Border Grid.Column="2"
+                                    StrokeShape="RoundRectangle 10"
+                                    BackgroundColor="#2B383E"
+                                    StrokeThickness="0"
+                                    Padding="10, 4"
+                                    VerticalOptions="Center">
+                                <Label Text="LUKUS 🔒"
+                                       FontSize="11"
+                                       FontAttributes="Bold"
+                                       TextColor="#94A3B8" />
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                </VerticalStackLayout>
+            </ScrollView>
+
+        </Grid>
+
+        <!-- 3. DUOLINGO FOOTER -->
+        <controls:DuolingoFooter Grid.Row="2" ActiveTab="Adventure" />
+
+        <!-- 4. BOTTOM SHEET MODAL OVERLAY (Выкатывающаяся плашка вместо DisplayAlert) -->
+        <Grid Grid.RowSpan="3"
+              x:Name="BottomSheetOverlay"
+              IsVisible="False"
+              BackgroundColor="#70000000">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnBottomSheetScrimTapped" />
+            </Grid.GestureRecognizers>
+
+            <Border x:Name="BottomSheetCard"
+                    VerticalOptions="End"
+                    StrokeShape="RoundRectangle 24, 24, 0, 0"
+                    BackgroundColor="#1B272C"
+                    Stroke="#2B383E"
+                    StrokeThickness="1"
+                    Padding="24, 16, 24, 28"
+                    MaximumWidthRequest="460"
+                    HorizontalOptions="Fill">
+                <Border.GestureRecognizers>
+                    <!-- Catch taps inside bottom sheet so clicking it doesn't dismiss it -->
+                    <TapGestureRecognizer />
+                </Border.GestureRecognizers>
+
+                <VerticalStackLayout Spacing="16">
+                    <!-- Tõmberiba (handle) -->
+                    <BoxView WidthRequest="40"
+                             HeightRequest="4"
+                             CornerRadius="2"
+                             BackgroundColor="#94A3B8"
+                             Opacity="0.5"
+                             HorizontalOptions="Center" />
+
+                    <!-- Ikoon ja teated -->
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Border x:Name="SheetIconBorder"
+                                StrokeShape="RoundRectangle 22"
+                                BackgroundColor="#2A373E"
+                                Stroke="#374850"
+                                StrokeThickness="2"
+                                WidthRequest="70"
+                                HeightRequest="70"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                            <Image x:Name="SheetIconImage"
+                                   Source="duo_lock.png"
+                                   WidthRequest="44"
+                                   HeightRequest="44"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <Label x:Name="SheetTitle"
+                               Text="Tase on lukus"
+                               FontSize="19"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+
+                        <Label x:Name="SheetMessage"
+                               Text="Lahenda esmalt eelmine mõistatus, et see tase avada!"
+                               FontSize="14"
+                               TextColor="#98A2B3"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"
+                               LineHeight="1.2" />
+                    </VerticalStackLayout>
+
+                    <!-- 3D Nupp: SELGUS -->
+                    <Grid HeightRequest="52" Margin="0, 6, 0, 0">
+                        <Border x:Name="SheetButtonBase"
+                                StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#0E88C7"
+                                StrokeThickness="0"
+                                VerticalOptions="End"
+                                HeightRequest="48" />
+                        <Border x:Name="SheetButtonSurface"
+                                StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#1CB0F6"
+                                StrokeThickness="0"
+                                VerticalOptions="Start"
+                                HeightRequest="48">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCloseSheetClicked" />
+                            </Border.GestureRecognizers>
+                            <Label Text="SELGUS"
+                                   TextColor="White"
+                                   FontAttributes="Bold"
+                                   FontSize="15"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+    </Grid>
+
+</ContentPage>
+

@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TicTacToe.Controls"
+             xmlns:loc="clr-namespace:TicTacToe.Resources.Localization"
+             x:Class="TicTacToe.Views.ProfilePage"
+             Title="Profiil"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="16" Padding="20,16,20,28" MaximumWidthRequest="460">
+
+                <!-- Duolingo Stiilis Päis -->
+                <Border x:Name="ProfileHeaderBorder"
+                        StrokeShape="RoundRectangle 16"
+                        BackgroundColor="#1CB0F6"
+                        Stroke="#0E88C7"
+                        StrokeThickness="0"
+                        Padding="16, 12">
+                    <Grid ColumnDefinitions="Auto, *, Auto" VerticalOptions="Center">
+                        <!-- Sulgemise rist vasakul -->
+                        <Border x:Name="ProfileCloseBorder"
+                                Grid.Column="0"
+                                StrokeShape="RoundRectangle 14"
+                                BackgroundColor="#0E88C7"
+                                WidthRequest="38"
+                                HeightRequest="38"
+                                VerticalOptions="Center"
+                                ToolTipProperties.Text="Tagasi pealehele">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCloseClicked" />
+                            </Border.GestureRecognizers>
+                            <Label Text="✕"
+                                   FontSize="17"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <Label Grid.Column="1"
+                               Text="MINU PROFIIL"
+                               FontSize="19"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               TextColor="White" />
+
+                        <!-- Seadete nupp (hammasratas) paremal -->
+                        <Border x:Name="ProfileGearBorder"
+                                Grid.Column="2"
+                                StrokeShape="RoundRectangle 14"
+                                BackgroundColor="#0E88C7"
+                                WidthRequest="38"
+                                HeightRequest="38"
+                                VerticalOptions="Center"
+                                ToolTipProperties.Text="Seaded">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSettingsClicked" />
+                            </Border.GestureRecognizers>
+                            <Image Source="duo_gear.png"
+                                   WidthRequest="22"
+                                   HeightRequest="22"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Aktiivse profiili kaart -->
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="#F7F7F7"
+                        Stroke="#E5E5E5"
+                        StrokeThickness="2"
+                        Padding="16">
+                    <!-- Suur avatar -->
+                    <Border x:Name="CurrentAvatarBorder"
+                            StrokeShape="RoundRectangle 50"
+                            Stroke="#1CB0F6"
+                            StrokeThickness="4"
+                            BackgroundColor="White"
+                            WidthRequest="100"
+                            HeightRequest="100"
+                            HorizontalOptions="Center">
+                        <Image x:Name="ImgCurrentAvatar"
+                               Source="janes2.png"
+                               WidthRequest="84"
+                               HeightRequest="84"
+                               Aspect="AspectFit"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+                </Border>
+
+                <!-- Nime muutmine -->
+                <Border StrokeShape="RoundRectangle 16"
+                        BackgroundColor="White"
+                        Stroke="#E5E5E5"
+                        StrokeThickness="2"
+                        Padding="16">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="MÄNGIJA NIMI"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="#777777" />
+
+                        <Border StrokeShape="RoundRectangle 12"
+                                BackgroundColor="#F7F7F7"
+                                Stroke="#E5E5E5"
+                                StrokeThickness="1.5"
+                                Padding="12, 4">
+                            <Entry x:Name="TxtPlayerName"
+                                   Placeholder="Sisesta oma nimi..."
+                                   PlaceholderColor="#AFAFAF"
+                                   TextColor="#3C3C3C"
+                                   FontSize="16"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Center"
+                                   MaxLength="24"
+                                   ClearButtonVisibility="WhileEditing" />
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Avatari valik -->
+                <Border StrokeShape="RoundRectangle 16"
+                        BackgroundColor="White"
+                        Stroke="#E5E5E5"
+                        StrokeThickness="2"
+                        Padding="16">
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="VALI OMA AVATAR"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="#777777" />
+
+                        <!-- 6 avatari 3x2 ruudustikus -->
+                        <Grid x:Name="AvatarsGrid"
+                              ColumnDefinitions="*, *, *"
+                              RowDefinitions="Auto, Auto"
+                              ColumnSpacing="12"
+                              RowSpacing="12">
+
+                            <!-- 1. Jänes -->
+                            <Border Grid.Row="0" Grid.Column="0"
+                                    x:Name="BorderAvatar0"
+                                    StrokeShape="RoundRectangle 16"
+                                    Stroke="#1CB0F6"
+                                    StrokeThickness="3"
+                                    BackgroundColor="#F7F7F7"
+                                    HeightRequest="74"
+                                    Padding="6">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="janes2.png" />
+                                </Border.GestureRecognizers>
+                                <Grid>
+                                    <Image Source="janes2.png" Aspect="AspectFit" />
+                                    <Label x:Name="LockAvatar0" Text="🔒" FontSize="14" HorizontalOptions="End" VerticalOptions="Start" IsVisible="False" />
+                                </Grid>
+                            </Border>
+
+                            <!-- 2. Rebane -->
+                            <Border Grid.Row="0" Grid.Column="1"
+                                    x:Name="BorderAvatar1"
+                                    StrokeShape="RoundRectangle 16"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="2"
+                                    BackgroundColor="#F7F7F7"
+                                    HeightRequest="74"
+                                    Padding="6">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="rebane2.png" />
+                                </Border.GestureRecognizers>
+                                <Grid>
+                                    <Image Source="rebane2.png" Aspect="AspectFit" />
+                                    <Label x:Name="LockAvatar1" Text="🔒" FontSize="14" HorizontalOptions="End" VerticalOptions="Start" IsVisible="False" />
+                                </Grid>
+                            </Border>
+
+                            <!-- 3. Karu -->
+                            <Border Grid.Row="0" Grid.Column="2"
+                                    x:Name="BorderAvatar2"
+                                    StrokeShape="RoundRectangle 16"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="2"
+                                    BackgroundColor="#F7F7F7"
+                                    HeightRequest="74"
+                                    Padding="6">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="karu2.png" />
+                                </Border.GestureRecognizers>
+                                <Grid>
+                                    <Image Source="karu2.png" Aspect="AspectFit" />
+                                    <Label x:Name="LockAvatar2" Text="🔒" FontSize="14" HorizontalOptions="End" VerticalOptions="Start" IsVisible="False" />
+                                </Grid>
+                            </Border>
+
+                            <!-- 4. Kass -->
+                            <Border Grid.Row="1" Grid.Column="0"
+                                    x:Name="BorderAvatar3"
+                                    StrokeShape="RoundRectangle 16"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="2"
+                                    BackgroundColor="#F7F7F7"
+                                    HeightRequest="74"
+                                    Padding="6">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="kass2.png" />
+                                </Border.GestureRecognizers>
+                                <Grid>
+                                    <Image Source="kass2.png" Aspect="AspectFit" />
+                                    <Label x:Name="LockAvatar3" Text="🔒" FontSize="14" HorizontalOptions="End" VerticalOptions="Start" IsVisible="False" />
+                                </Grid>
+                            </Border>
+
+                            <!-- 5. Robot -->
+                            <Border Grid.Row="1" Grid.Column="1"
+                                    x:Name="BorderAvatar4"
+                                    StrokeShape="RoundRectangle 16"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="2"
+                                    BackgroundColor="#F7F7F7"
+                                    HeightRequest="74"
+                                    Padding="6">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="robot2.png" />
+                                </Border.GestureRecognizers>
+                                <Grid>
+                                    <Image Source="robot2.png" Aspect="AspectFit" />
+                                    <Label x:Name="LockAvatar4" Text="🔒" FontSize="14" HorizontalOptions="End" VerticalOptions="Start" IsVisible="False" />
+                                </Grid>
+                            </Border>
+
+                            <!-- 6. Täht Meister -->
+                            <Border Grid.Row="1" Grid.Column="2"
+                                    x:Name="BorderAvatar5"
+                                    StrokeShape="RoundRectangle 16"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="2"
+                                    BackgroundColor="#F7F7F7"
+                                    HeightRequest="74"
+                                    Padding="6">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnAvatarTapped" CommandParameter="star2.png" />
+                                </Border.GestureRecognizers>
+                                <Grid>
+                                    <Image Source="star2.png" Aspect="AspectFit" />
+                                    <Label x:Name="LockAvatar5" Text="🔒" FontSize="14" HorizontalOptions="End" VerticalOptions="Start" IsVisible="False" />
+                                </Grid>
+                            </Border>
+
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Kaart: Lemmikmärgid / Vitriin (Drag & Drop ja Tap-to-Place) -->
+                <Border StrokeShape="RoundRectangle 20"
+                        BackgroundColor="White"
+                        Stroke="#E5E5E5"
+                        StrokeThickness="2"
+                        Padding="16">
+                    <VerticalStackLayout Spacing="14">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Label Text="{loc:Translate FavoriteBadgesTitle}"
+                                   FontAttributes="Bold"
+                                   FontSize="13"
+                                   TextColor="#777777"
+                                   VerticalOptions="Center" />
+                            <Label Grid.Column="1"
+                                   Text="✨"
+                                   FontSize="16"
+                                   VerticalOptions="Center" />
+                        </Grid>
+
+                        <Label Text="{loc:Translate DragDropHint}"
+                               FontSize="12"
+                               TextColor="#888888"
+                               Margin="0, -6, 0, 0" />
+
+                        <!-- Pjedestaali 3 kohta (Drop Zones) -->
+                        <Grid ColumnDefinitions="*, *, *" ColumnSpacing="10" HeightRequest="88">
+                            <!-- Koht 1 (Kuld / 🥇) -->
+                            <Border x:Name="SlotBorder0"
+                                    Grid.Column="0"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#FFFDF0"
+                                    Stroke="#FFC800"
+                                    StrokeThickness="2"
+                                    Padding="4">
+                                <Border.GestureRecognizers>
+                                    <DropGestureRecognizer AllowDrop="True"
+                                                           DragOver="OnBadgeDragOver"
+                                                           Drop="OnBadgeDropToSlot0" />
+                                    <TapGestureRecognizer Tapped="OnSlot0Tapped" />
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="2">
+                                    <Label Text="{loc:Translate SlotFirstPlace}" FontSize="11" FontAttributes="Bold" TextColor="#D97706" HorizontalOptions="Center" />
+                                    <Label x:Name="LblSlot0" Text="🦔" FontSize="32" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <!-- Koht 2 (Hõbe / 🥈) -->
+                            <Border x:Name="SlotBorder1"
+                                    Grid.Column="1"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#F8FAFC"
+                                    Stroke="#94A3B8"
+                                    StrokeThickness="2"
+                                    Padding="4">
+                                <Border.GestureRecognizers>
+                                    <DropGestureRecognizer AllowDrop="True"
+                                                           DragOver="OnBadgeDragOver"
+                                                           Drop="OnBadgeDropToSlot1" />
+                                    <TapGestureRecognizer Tapped="OnSlot1Tapped" />
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="2">
+                                    <Label Text="{loc:Translate SlotSecondPlace}" FontSize="11" FontAttributes="Bold" TextColor="#64748B" HorizontalOptions="Center" />
+                                    <Label x:Name="LblSlot1" Text="🏆" FontSize="32" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+
+                            <!-- Koht 3 (Pronks / 🥉) -->
+                            <Border x:Name="SlotBorder2"
+                                    Grid.Column="2"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#FFF7ED"
+                                    Stroke="#F97316"
+                                    StrokeThickness="2"
+                                    Padding="4">
+                                <Border.GestureRecognizers>
+                                    <DropGestureRecognizer AllowDrop="True"
+                                                           DragOver="OnBadgeDragOver"
+                                                           Drop="OnBadgeDropToSlot2" />
+                                    <TapGestureRecognizer Tapped="OnSlot2Tapped" />
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="2">
+                                    <Label Text="{loc:Translate SlotThirdPlace}" FontSize="11" FontAttributes="Bold" TextColor="#C2410C" HorizontalOptions="Center" />
+                                    <Label x:Name="LblSlot2" Text="⭐" FontSize="32" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+
+                        <!-- Märkide valikurida (Drag Sources / Tap Sources) -->
+                        <Grid ColumnDefinitions="*, *, *, *, *, *" ColumnSpacing="6" HeightRequest="56">
+                            <!-- 🦔 Siil -->
+                            <Border x:Name="BadgeItem0" Grid.Column="0"
+                                    StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#F7F7F7"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="1.5">
+                                <Border.GestureRecognizers>
+                                    <DragGestureRecognizer CanDrag="True"
+                                                           DragStarting="OnBadge0DragStarting" />
+                                    <TapGestureRecognizer Tapped="OnBadge0Tapped" />
+                                </Border.GestureRecognizers>
+                                <Label Text="🦔" FontSize="26" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+
+                            <!-- 🏆 Karikas -->
+                            <Border x:Name="BadgeItem1" Grid.Column="1"
+                                    StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#F7F7F7"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="1.5">
+                                <Border.GestureRecognizers>
+                                    <DragGestureRecognizer CanDrag="True"
+                                                           DragStarting="OnBadge1DragStarting" />
+                                    <TapGestureRecognizer Tapped="OnBadge1Tapped" />
+                                </Border.GestureRecognizers>
+                                <Label Text="🏆" FontSize="26" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+
+                            <!-- ⭐ Täht -->
+                            <Border x:Name="BadgeItem2" Grid.Column="2"
+                                    StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#F7F7F7"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="1.5">
+                                <Border.GestureRecognizers>
+                                    <DragGestureRecognizer CanDrag="True"
+                                                           DragStarting="OnBadge2DragStarting" />
+                                    <TapGestureRecognizer Tapped="OnBadge2Tapped" />
+                                </Border.GestureRecognizers>
+                                <Label Text="⭐" FontSize="26" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+
+                            <!-- 👑 Kroon -->
+                            <Border x:Name="BadgeItem3" Grid.Column="3"
+                                    StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#F7F7F7"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="1.5">
+                                <Border.GestureRecognizers>
+                                    <DragGestureRecognizer CanDrag="True"
+                                                           DragStarting="OnBadge3DragStarting" />
+                                    <TapGestureRecognizer Tapped="OnBadge3Tapped" />
+                                </Border.GestureRecognizers>
+                                <Label Text="👑" FontSize="26" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+
+                            <!-- 🎯 Märklaud -->
+                            <Border x:Name="BadgeItem4" Grid.Column="4"
+                                    StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#F7F7F7"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="1.5">
+                                <Border.GestureRecognizers>
+                                    <DragGestureRecognizer CanDrag="True"
+                                                           DragStarting="OnBadge4DragStarting" />
+                                    <TapGestureRecognizer Tapped="OnBadge4Tapped" />
+                                </Border.GestureRecognizers>
+                                <Label Text="🎯" FontSize="26" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+
+                            <!-- ⚡ Välk -->
+                            <Border x:Name="BadgeItem5" Grid.Column="5"
+                                    StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#F7F7F7"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="1.5">
+                                <Border.GestureRecognizers>
+                                    <DragGestureRecognizer CanDrag="True"
+                                                           DragStarting="OnBadge5DragStarting" />
+                                    <TapGestureRecognizer Tapped="OnBadge5Tapped" />
+                                </Border.GestureRecognizers>
+                                <Label Text="⚡" FontSize="26" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Nupud: Salvesta ja Tagasi -->
+                <VerticalStackLayout Spacing="10" Margin="0,4,0,0">
+                    <Border x:Name="BtnSaveBorder"
+                            StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#1CB0F6"
+                            Stroke="#0E88C7"
+                            StrokeThickness="0"
+                            HeightRequest="52">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSaveClicked" />
+                        </Border.GestureRecognizers>
+                        <Label Text="SALVESTA MUUDATUSED"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               FontSize="15"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <Border StrokeShape="RoundRectangle 16"
+                            BackgroundColor="#FFFFFF"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="2"
+                            HeightRequest="48">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBackButtonClicked" />
+                        </Border.GestureRecognizers>
+                        <Label Text="TAGASI MÄNGU"
+                               TextColor="#4B4B4B"
+                               FontAttributes="Bold"
+                               FontSize="14"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Duolingo Footer navigatsioon -->
+        <controls:DuolingoFooter Grid.Row="1" ActiveTab="More" />
+
+        <!-- Bottom Sheet Modal Overlay (Sama mis poes) -->
+        <Grid Grid.RowSpan="2"
+              x:Name="BottomSheetOverlay"
+              IsVisible="False"
+              BackgroundColor="#70000000">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnBottomSheetScrimTapped" />
+            </Grid.GestureRecognizers>
+
+            <Border x:Name="BottomSheetCard"
+                    VerticalOptions="End"
+                    StrokeShape="RoundRectangle 24, 24, 0, 0"
+                    BackgroundColor="White"
+                    Stroke="#E5E5E5"
+                    StrokeThickness="1"
+                    Padding="24, 16, 24, 28"
+                    MaximumWidthRequest="460"
+                    HorizontalOptions="Fill">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer />
+                </Border.GestureRecognizers>
+
+                <VerticalStackLayout Spacing="16">
+                    <!-- Tõmberiba -->
+                    <BoxView WidthRequest="40"
+                             HeightRequest="4"
+                             CornerRadius="2"
+                             BackgroundColor="#D1D5DB"
+                             HorizontalOptions="Center" />
+
+                    <!-- Ikoon ja teated -->
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Border x:Name="SheetIconBorder"
+                                StrokeShape="RoundRectangle 22"
+                                BackgroundColor="#FEF3C7"
+                                Stroke="#FCD34D"
+                                StrokeThickness="2"
+                                WidthRequest="70"
+                                HeightRequest="70"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                            <Image x:Name="SheetIconImage"
+                                   Source="duo_coin.png"
+                                   WidthRequest="48"
+                                   HeightRequest="48"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <Label x:Name="SheetTitle"
+                               Text="Kinnita ost"
+                               FontSize="19"
+                               FontAttributes="Bold"
+                               TextColor="#2B2B2B"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+
+                        <Label x:Name="SheetMessage"
+                               Text="Kas soovid osta...?"
+                               FontSize="14"
+                               TextColor="#6B7280"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"
+                               LineHeight="1.2" />
+                    </VerticalStackLayout>
+
+                    <!-- Nupud: Kinnitamine (Osta / Loobu) -->
+                    <VerticalStackLayout x:Name="SheetConfirmActions" Spacing="10">
+                        <Border x:Name="SheetBuyButtonBorder"
+                                StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#1CB0F6"
+                                Stroke="#0E88C7"
+                                StrokeThickness="0"
+                                HeightRequest="50">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnConfirmPurchaseClicked" />
+                            </Border.GestureRecognizers>
+                            <Label x:Name="LblSheetBuyButton"
+                                   Text="OSTA"
+                                   TextColor="White"
+                                   FontAttributes="Bold"
+                                   FontSize="15"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <Border StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#F7F7F7"
+                                Stroke="#E5E5E5"
+                                StrokeThickness="1.5"
+                                HeightRequest="46">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCancelPurchaseClicked" />
+                            </Border.GestureRecognizers>
+                            <Label Text="LOOBU"
+                                   TextColor="#777777"
+                                   FontAttributes="Bold"
+                                   FontSize="14"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Nupud: Teade (Münte pole piisavalt) -->
+                    <VerticalStackLayout x:Name="SheetAlertActions" Spacing="10" IsVisible="False">
+                        <Border StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#1CB0F6"
+                                Stroke="#1899D6"
+                                StrokeThickness="0"
+                                HeightRequest="50">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnCloseAlertSheetClicked" />
+                            </Border.GestureRecognizers>
+                            <Label Text="SELGUS"
+                                   TextColor="White"
+                                   FontAttributes="Bold"
+                                   FontSize="15"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+    </Grid>
+
+</ContentPage>
+

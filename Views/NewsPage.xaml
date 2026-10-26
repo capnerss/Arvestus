@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TicTacToe.Controls"
+             x:Class="TicTacToe.Views.NewsPage"
+             Title="Uudised"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F7F9FA">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+
+        <!-- 1. ТАКТИЛЬНЫЙ ХЕДЕР DUOLINGO -->
+        <Grid Grid.Row="0" HeightRequest="60" Margin="20, 14, 20, 8">
+            <Border x:Name="HdrShadow"
+                    StrokeShape="RoundRectangle 18"
+                    BackgroundColor="#1899D6"
+                    StrokeThickness="0"
+                    Margin="0, 4, 0, 0" />
+            <Border x:Name="HdrSurface"
+                    StrokeShape="RoundRectangle 18"
+                    BackgroundColor="#1CB0F6"
+                    StrokeThickness="0"
+                    Padding="14, 0"
+                    Margin="0, 0, 0, 4">
+                <Grid ColumnDefinitions="Auto, *, Auto" VerticalOptions="Center">
+                    <!-- Кнопка назад / закрыть (Крестик) -->
+                    <Border x:Name="BtnBackBorder"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#1899D6"
+                            StrokeThickness="0"
+                            WidthRequest="36"
+                            HeightRequest="36"
+                            VerticalOptions="Center"
+                            ToolTipProperties.Text="Tagasi pealehele">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnBackClicked" />
+                        </Border.GestureRecognizers>
+                        <Label Text="✕"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <!-- Заголовок -->
+                    <Label Grid.Column="1"
+                           Text="UUDISED"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           TextColor="White" />
+
+                    <!-- Иконка вестника / блокнота -->
+                    <Border x:Name="IconNotebookBorder"
+                            Grid.Column="2"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#1899D6"
+                            StrokeThickness="0"
+                            WidthRequest="36"
+                            HeightRequest="36"
+                            VerticalOptions="Center">
+                        <Image Source="duo_notebook.png"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               Aspect="AspectFit"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center" />
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- 2. ОСНОВНОЙ КОНТЕНТ (НОВОСТНАЯ ЛЕНТА) -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="16" Padding="20, 6, 20, 24" MaximumWidthRequest="460">
+
+                <!-- 2.1. БАННЕР С МАСКОТОМ ЁЖИКОМ -->
+                <Border x:Name="HedgehogBannerCard"
+                        StrokeShape="RoundRectangle 22"
+                        BackgroundColor="White"
+                        Stroke="#E5E5E5"
+                        StrokeThickness="2"
+                        Padding="16, 14">
+                    <Grid ColumnDefinitions="Auto, *" ColumnSpacing="14" VerticalOptions="Center">
+                        <!-- Маскот Ёжик -->
+                        <Border x:Name="HedgehogAvatarBorder"
+                                StrokeShape="RoundRectangle 18"
+                                BackgroundColor="#F0FDF4"
+                                Stroke="#DCFCE7"
+                                StrokeThickness="1.5"
+                                WidthRequest="74"
+                                HeightRequest="74"
+                                VerticalOptions="Center">
+                            <Image Source="happy.png"
+                                   WidthRequest="62"
+                                   HeightRequest="62"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <!-- Речевое облачко -->
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label x:Name="LblHedgehogSpeech"
+                                   Text="«Siit leiad mängu värskeimad teated, uuenduste logi ja tulevikuplaanid!»"
+                                   FontSize="13"
+                                   TextColor="#4B4B4B"
+                                   FontAttributes="Bold"
+                                   LineHeight="1.3" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- 3. DUOLINGO FOOTER -->
+        <controls:DuolingoFooter Grid.Row="2" ActiveTab="News" />
+
+    </Grid>
+
+</ContentPage>
+

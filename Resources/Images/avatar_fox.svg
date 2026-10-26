@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fox Avatar -->
+  <circle cx="32" cy="32" r="30" fill="#FF9600"/>
+  <!-- Ears -->
+  <path d="M14 10L24 22L10 22Z" fill="#E57800"/>
+  <path d="M50 10L40 22L54 22Z" fill="#E57800"/>
+  <!-- White Snout Area -->
+  <path d="M18 36C18 48 32 54 32 54C32 54 46 48 46 36C46 32 40 28 32 28C24 28 18 32 18 36Z" fill="#FFFFFF"/>
+  <!-- Black Nose -->
+  <ellipse cx="32" cy="44" rx="4" ry="3" fill="#3C3C3C"/>
+  <!-- Eyes -->
+  <ellipse cx="23" cy="30" rx="3.5" ry="4" fill="#3C3C3C"/>
+  <ellipse cx="41" cy="30" rx="3.5" ry="4" fill="#3C3C3C"/>
+  <circle cx="24.5" cy="28.5" r="1.5" fill="#FFFFFF"/>
+  <circle cx="42.5" cy="28.5" r="1.5" fill="#FFFFFF"/>
+</svg>

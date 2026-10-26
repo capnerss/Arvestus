@@ -1,0 +1,28 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Soft drop shadow -->
+  <ellipse cx="32" cy="58" rx="22" ry="5" fill="#000000" fill-opacity="0.22"/>
+
+  <!-- Shackle (Arch) Shadow -->
+  <path d="M22 28V20C22 14.4772 26.4772 10 32 10C37.5228 10 42 14.4772 42 20V28" stroke="#64748B" stroke-width="7" stroke-linecap="round"/>
+  <!-- Shackle (Arch) Front -->
+  <path d="M22 26V20C22 14.4772 26.4772 10 32 10C37.5228 10 42 14.4772 42 20V26" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round"/>
+  <!-- Shackle highlight -->
+  <path d="M25 15C27 13 29.4 12 32 12C34.6 12 37 13 39 15" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Lock Body 3D Base (Shadow) -->
+  <rect x="14" y="28" width="36" height="28" rx="9" fill="#B45309"/>
+
+  <!-- Lock Body Surface -->
+  <rect x="14" y="25" width="36" height="28" rx="9" fill="#F59E0B"/>
+  <rect x="16" y="27" width="32" height="24" rx="7" fill="#FBBF24"/>
+
+  <!-- Top highlight glint -->
+  <path d="M19 28H45" stroke="#FEF08A" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Keyhole -->
+  <circle cx="32" cy="37" r="3.5" fill="#78350F"/>
+  <path d="M30.5 38L29.5 44H34.5L33.5 38H30.5Z" fill="#78350F"/>
+
+  <!-- Tiny sparkle -->
+  <path d="M46 22L47 18L48 22L52 23L48 24L47 28L46 24L42 23L46 22Z" fill="#FDE047"/>
+</svg>

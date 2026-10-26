@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Map Scroll Bottom 3D Shadow -->
+  <rect x="6" y="9" width="36" height="32" rx="7" fill="#D97706"/>
+  <!-- Map Outer Parchment -->
+  <rect x="6" y="7" width="36" height="32" rx="7" fill="#FFC800"/>
+  <!-- Map Face / Content Surface -->
+  <rect x="8" y="9" width="32" height="27" rx="5" fill="#FFFDF0"/>
+
+  <!-- Compass / Grid decorative lines on map -->
+  <path d="M12 14C16 13 20 15 24 14" stroke="#FFEAA7" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M26 31C30 30 34 32 37 31" stroke="#FFEAA7" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Dotted Adventure Trail (Path of the 5 Quests) -->
+  <path d="M13 31C16 26 21 28 24 22C27 16 31 19 34 14" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="1 3"/>
+
+  <!-- Waypoint Step 1 (Completed node) -->
+  <circle cx="13" cy="31" r="3.2" fill="#58CC02"/>
+  <circle cx="13" cy="31" r="1.6" fill="#FFFFFF"/>
+
+  <!-- Waypoint Step 2 (Mid node) -->
+  <circle cx="23.5" cy="22.5" r="2.8" fill="#1CB0F6"/>
+  <circle cx="23.5" cy="22.5" r="1.3" fill="#FFFFFF"/>
+
+  <!-- Golden Star of Achievement (Bonus Quest) -->
+  <path d="M15 16L16.2 18.5L19 18.9L17 20.8L17.5 23.5L15 22.2L12.5 23.5L13 20.8L11 18.9L13.8 18.5L15 16Z" fill="#F59E0B"/>
+  <path d="M15 15.5L16.1 17.8L18.6 18.2L16.8 19.9L17.2 22.4L15 21.2L12.8 22.4L13.2 19.9L11.4 18.2L13.9 17.8L15 15.5Z" fill="#FFD13B"/>
+
+  <!-- Finish Flag Pole & 3D Shadow -->
+  <line x1="34" y1="11" x2="34" y2="28" stroke="#78350F" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="34" cy="11" r="1.8" fill="#FFC800"/>
+
+  <!-- Victory Red Flag with 3D Shade -->
+  <path d="M34 12L42 16L34 20Z" fill="#C5221F"/>
+  <path d="M34 11.5L42 15.5L34 19.5Z" fill="#FF4B4B"/>
+  <!-- Flag fold highlight -->
+  <path d="M34 12L39 15L34 17Z" fill="#FF7B7B" opacity="0.6"/>
+</svg>

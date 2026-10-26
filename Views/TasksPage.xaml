@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:TicTacToe.Controls"
+             xmlns:models="clr-namespace:TicTacToe.Models"
+             xmlns:viewmodels="clr-namespace:TicTacToe.ViewModels"
+             x:Class="TicTacToe.Views.TasksPage"
+             x:DataType="viewmodels:TasksViewModel"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F4FAFF">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="16" Padding="16, 12, 16, 24">
+
+                <!-- ==================== 1. DUOLINGO 3D HEADER ==================== -->
+                <Grid HeightRequest="74">
+                    <!-- 3D Shadow -->
+                    <Border x:Name="HdrShadow"
+                            StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#0E88C7"
+                            StrokeThickness="0"
+                            Margin="0, 4, 0, 0" />
+
+                    <!-- 3D Surface -->
+                    <Border x:Name="HdrSurface"
+                            StrokeShape="RoundRectangle 20"
+                            BackgroundColor="#1CB0F6"
+                            StrokeThickness="0"
+                            Padding="14, 10">
+                        <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12" VerticalOptions="Center">
+
+                            <!-- Tagasinupp -->
+                            <Border x:Name="BtnBack"
+                                    Grid.Column="0"
+                                    StrokeShape="RoundRectangle 14"
+                                    BackgroundColor="#0E88C7"
+                                    StrokeThickness="0"
+                                    WidthRequest="42"
+                                    HeightRequest="42"
+                                    VerticalOptions="Center">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnBackClicked" />
+                                </Border.GestureRecognizers>
+                                <Label Text="←"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+
+                            <!-- Tiitel ja alamtiitel -->
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="0">
+                                <Label Text="ÜLESANDED"
+                                       FontSize="17"
+                                       FontAttributes="Bold"
+                                       TextColor="White" />
+                                <Label Text="MISSIOONID &amp; SQLite"
+                                       FontSize="11"
+                                       FontAttributes="Bold"
+                                       TextColor="#E0F2FE" />
+                            </VerticalStackLayout>
+
+                            <!-- Müntide loendur -->
+                            <Border Grid.Column="2"
+                                    StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#FEF3C7"
+                                    Stroke="#FCD34D"
+                                    StrokeThickness="1.5"
+                                    Padding="10, 4"
+                                    HeightRequest="36"
+                                    VerticalOptions="Center">
+                                <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                                    <Image Source="duo_coin.png"
+                                           WidthRequest="20"
+                                           HeightRequest="20"
+                                           Aspect="AspectFit"
+                                           VerticalOptions="Center" />
+                                    <Label Text="{Binding Coins}"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="#B45309"
+                                           VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- ==================== 2. STATISTIKA JA LISA NUPP ==================== -->
+                <Grid ColumnDefinitions="*, Auto" ColumnSpacing="12" VerticalOptions="Center">
+                    <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                        <Border StrokeShape="RoundRectangle 12"
+                                BackgroundColor="#DCFCE7"
+                                StrokeThickness="0"
+                                Padding="10, 6">
+                            <Label Text="{Binding CompletedCount, StringFormat='Tehtud: {0}'}"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="#15803D" />
+                        </Border>
+                        <Border StrokeShape="RoundRectangle 12"
+                                BackgroundColor="#FEF3C7"
+                                StrokeThickness="0"
+                                Padding="10, 6">
+                            <Label Text="{Binding PendingCount, StringFormat='Pooleli: {0}'}"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="#B45309" />
+                        </Border>
+                    </HorizontalStackLayout>
+
+                    <!-- 3D nupp: Uus ülesanne -->
+                    <Grid Grid.Column="1" HeightRequest="44" WidthRequest="150">
+                        <Border StrokeShape="RoundRectangle 14"
+                                BackgroundColor="#46A302"
+                                StrokeThickness="0"
+                                Margin="0, 3, 0, 0" />
+                        <Border StrokeShape="RoundRectangle 14"
+                                BackgroundColor="#58CC02"
+                                StrokeThickness="0"
+                                Padding="12, 0"
+                                VerticalOptions="Fill"
+                                HorizontalOptions="Fill">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenAddCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="+ UUS ÜLESANNE"
+                                   FontSize="12"
+                                   FontAttributes="Bold"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </Grid>
+                </Grid>
+
+                <!-- ==================== 3. FILTRI NUPUD (Segmendid) ==================== -->
+                <Grid ColumnDefinitions="*, *, *" ColumnSpacing="8">
+                    <!-- Kõik -->
+                    <Border StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#FFFFFF"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="1.5"
+                            Padding="8, 8">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetFilterCommand}" CommandParameter="0" />
+                        </Border.GestureRecognizers>
+                        <Label Text="Kõik"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="#3C3C3C"
+                               HorizontalOptions="Center" />
+                    </Border>
+
+                    <!-- Pooleli -->
+                    <Border Grid.Column="1"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#FFFFFF"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="1.5"
+                            Padding="8, 8">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetFilterCommand}" CommandParameter="1" />
+                        </Border.GestureRecognizers>
+                        <Label Text="Pooleli"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="#3C3C3C"
+                               HorizontalOptions="Center" />
+                    </Border>
+
+                    <!-- Tehtud -->
+                    <Border Grid.Column="2"
+                            StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#FFFFFF"
+                            Stroke="#E5E5E5"
+                            StrokeThickness="1.5"
+                            Padding="8, 8">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetFilterCommand}" CommandParameter="2" />
+                        </Border.GestureRecognizers>
+                        <Label Text="Tehtud"
+                               FontSize="13"
+                               FontAttributes="Bold"
+                               TextColor="#3C3C3C"
+                               HorizontalOptions="Center" />
+                    </Border>
+                </Grid>
+
+                <!-- ==================== 4. COLLECTIONVIEW ÜLESANNETEGA ==================== -->
+                <CollectionView ItemsSource="{Binding Tasks}"
+                                SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+                    </CollectionView.ItemsLayout>
+
+                    <!-- EmptyView, kui ülesandeid pole -->
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout Spacing="12" Padding="20, 40" HorizontalOptions="Center">
+                            <Image Source="happy.png"
+                                   WidthRequest="72"
+                                   HeightRequest="72"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Ülesandeid ei leitud"
+                                   FontSize="17"
+                                   FontAttributes="Bold"
+                                   TextColor="#2B2B2B"
+                                   HorizontalOptions="Center" />
+                            <Label Text="Loo uus ülesanne või vaheta filtrit ülalpool."
+                                   FontSize="13"
+                                   TextColor="#777777"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+
+                    <!-- Ülesande 3D kaardi mall -->
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:GameTask">
+                            <Grid HeightRequest="90">
+                                <!-- 3D vari -->
+                                <Border StrokeShape="RoundRectangle 18"
+                                        BackgroundColor="#D1D5DB"
+                                        StrokeThickness="0"
+                                        Margin="0, 3, 0, 0" />
+
+                                <!-- 3D pind -->
+                                <Border StrokeShape="RoundRectangle 18"
+                                        BackgroundColor="White"
+                                        Stroke="#E5E5E5"
+                                        StrokeThickness="1.5"
+                                        Padding="14, 10">
+                                    <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="12" VerticalOptions="Center">
+
+                                        <!-- Märkeruut / Tehtuks märkimise nupp -->
+                                        <Border Grid.Column="0"
+                                                StrokeShape="RoundRectangle 14"
+                                                BackgroundColor="#FFFFFF"
+                                                Stroke="#58CC02"
+                                                StrokeThickness="2"
+                                                WidthRequest="36"
+                                                HeightRequest="36"
+                                                VerticalOptions="Center">
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TasksViewModel}}, Path=ToggleCompleteCommand}"
+                                                                      CommandParameter="{Binding Id}" />
+                                            </Border.GestureRecognizers>
+                                            <Label Text="✓"
+                                                   FontSize="20"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#58CC02"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center" />
+                                        </Border>
+
+                                        <!-- Info: Kategooria, Pealkiri, Kirjeldus -->
+                                        <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                                            <HorizontalStackLayout Spacing="6">
+                                                <Border StrokeShape="RoundRectangle 6"
+                                                        BackgroundColor="#E0F2FE"
+                                                        StrokeThickness="0"
+                                                        Padding="6, 1">
+                                                    <Label Text="{Binding Category}"
+                                                           FontSize="10"
+                                                           FontAttributes="Bold"
+                                                           TextColor="#0369A1" />
+                                                </Border>
+                                                <Label Text="{Binding RewardCoins, StringFormat='+{0} 🪙'}"
+                                                       FontSize="11"
+                                                       FontAttributes="Bold"
+                                                       TextColor="#B45309" />
+                                            </HorizontalStackLayout>
+
+                                            <Label Text="{Binding Title}"
+                                                   FontSize="14"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#2B2B2B"
+                                                   LineBreakMode="TailTruncation" />
+
+                                            <Label Text="{Binding Description}"
+                                                   FontSize="12"
+                                                   TextColor="#6B7280"
+                                                   LineBreakMode="TailTruncation" />
+                                        </VerticalStackLayout>
+
+                                        <!-- Toimingud: Muuda ja Kustuta -->
+                                        <HorizontalStackLayout Grid.Column="2" Spacing="6" VerticalOptions="Center">
+                                            <!-- Muuda -->
+                                            <Border StrokeShape="RoundRectangle 10"
+                                                    BackgroundColor="#F3F4F6"
+                                                    Stroke="#E5E5E5"
+                                                    StrokeThickness="1"
+                                                    WidthRequest="32"
+                                                    HeightRequest="32"
+                                                    VerticalOptions="Center">
+                                                <Border.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TasksViewModel}}, Path=OpenEditCommand}"
+                                                                          CommandParameter="{Binding .}" />
+                                                </Border.GestureRecognizers>
+                                                <Label Text="✎"
+                                                       FontSize="14"
+                                                       TextColor="#4B4B4B"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center" />
+                                            </Border>
+
+                                            <!-- Kustuta -->
+                                            <Border StrokeShape="RoundRectangle 10"
+                                                    BackgroundColor="#FEE2E2"
+                                                    Stroke="#FECACA"
+                                                    StrokeThickness="1"
+                                                    WidthRequest="32"
+                                                    HeightRequest="32"
+                                                    VerticalOptions="Center">
+                                                <Border.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TasksViewModel}}, Path=DeleteTaskCommand}"
+                                                                          CommandParameter="{Binding Id}" />
+                                                </Border.GestureRecognizers>
+                                                <Label Text="✕"
+                                                       FontSize="14"
+                                                       FontAttributes="Bold"
+                                                       TextColor="#DC2626"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center" />
+                                            </Border>
+                                        </HorizontalStackLayout>
+
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- ==================== 5. PILVE SÜNKROONI NUPP ==================== -->
+                <Border StrokeShape="RoundRectangle 14"
+                        BackgroundColor="#FFFFFF"
+                        Stroke="#E5E5E5"
+                        StrokeThickness="1.5"
+                        Padding="14, 10">
+                    <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Kaugandmebaasi sünkroon (Remote DB)"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#2B2B2B" />
+                            <Label Text="Valmidus pilveserveriga andmete vahetuseks"
+                                   FontSize="11"
+                                   TextColor="#777777" />
+                        </VerticalStackLayout>
+                        <Border Grid.Column="1"
+                                StrokeShape="RoundRectangle 10"
+                                BackgroundColor="#1CB0F6"
+                                StrokeThickness="0"
+                                Padding="12, 6">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SyncRemoteCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="SÜNKROONI"
+                                   FontSize="11"
+                                   FontAttributes="Bold"
+                                   TextColor="White" />
+                        </Border>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Duolingo Footer -->
+        <controls:DuolingoFooter Grid.Row="1" ActiveTab="More" />
+
+        <!-- ==================== 6. MODAL OVERLAY (LISA / MUUDA ÜLESANNET) ==================== -->
+        <Grid Grid.RowSpan="2"
+              IsVisible="{Binding IsEditorOpen}"
+              BackgroundColor="#70000000">
+            <Border VerticalOptions="End"
+                    StrokeShape="RoundRectangle 24, 24, 0, 0"
+                    BackgroundColor="White"
+                    Stroke="#E5E5E5"
+                    StrokeThickness="1"
+                    Padding="22, 18, 22, 28"
+                    MaximumWidthRequest="460"
+                    HorizontalOptions="Fill">
+                <VerticalStackLayout Spacing="14">
+
+                    <!-- Handle -->
+                    <BoxView WidthRequest="40"
+                             HeightRequest="4"
+                             CornerRadius="2"
+                             BackgroundColor="#D1D5DB"
+                             HorizontalOptions="Center" />
+
+                    <!-- Päis -->
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Label Text="{Binding EditorHeader}"
+                               FontSize="17"
+                               FontAttributes="Bold"
+                               TextColor="#2B2B2B"
+                               VerticalOptions="Center" />
+                        <Border Grid.Column="1"
+                                StrokeShape="RoundRectangle 14"
+                                BackgroundColor="#F3F4F6"
+                                StrokeThickness="0"
+                                WidthRequest="32"
+                                HeightRequest="32">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CloseEditorCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="✕"
+                                   FontSize="13"
+                                   TextColor="#6B7280"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </Grid>
+
+                    <!-- Sisend: Pealkiri -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Ülesande pealkiri:" FontSize="12" FontAttributes="Bold" TextColor="#4B4B4B" />
+                        <Border StrokeShape="RoundRectangle 12"
+                                BackgroundColor="#F9FAFB"
+                                Stroke="#E5E5E5"
+                                StrokeThickness="1"
+                                Padding="12, 2">
+                            <Entry Text="{Binding InputTitle}"
+                                   Placeholder="nt. Võida 3 mängu järjest"
+                                   FontSize="14"
+                                   TextColor="#1F2937" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Sisend: Kirjeldus -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Kirjeldus:" FontSize="12" FontAttributes="Bold" TextColor="#4B4B4B" />
+                        <Border StrokeShape="RoundRectangle 12"
+                                BackgroundColor="#F9FAFB"
+                                Stroke="#E5E5E5"
+                                StrokeThickness="1"
+                                Padding="12, 4">
+                            <Editor Text="{Binding InputDescription}"
+                                    Placeholder="Täpsem kirjeldus ja reeglid..."
+                                    FontSize="13"
+                                    HeightRequest="60"
+                                    TextColor="#1F2937" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Sisend: Preemia (mündid) ja Kategooria -->
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Mündipreemia:" FontSize="12" FontAttributes="Bold" TextColor="#4B4B4B" />
+                            <Border StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#F9FAFB"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="1"
+                                    Padding="12, 2">
+                                <Entry Text="{Binding InputReward}"
+                                       Keyboard="Numeric"
+                                       FontSize="14"
+                                       TextColor="#1F2937" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="4">
+                            <Label Text="Kategooria:" FontSize="12" FontAttributes="Bold" TextColor="#4B4B4B" />
+                            <Border StrokeShape="RoundRectangle 12"
+                                    BackgroundColor="#F9FAFB"
+                                    Stroke="#E5E5E5"
+                                    StrokeThickness="1"
+                                    Padding="12, 2">
+                                <Entry Text="{Binding InputCategory}"
+                                       Placeholder="Päevaülesanne"
+                                       FontSize="14"
+                                       TextColor="#1F2937" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- Nupud: Salvesta ja Loobu -->
+                    <VerticalStackLayout Spacing="8" Margin="0, 6, 0, 0">
+                        <!-- Salvesta 3D Nupp -->
+                        <Grid HeightRequest="48">
+                            <Border StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#0E88C7"
+                                    StrokeThickness="0"
+                                    Margin="0, 3, 0, 0" />
+                            <Border StrokeShape="RoundRectangle 16"
+                                    BackgroundColor="#1CB0F6"
+                                    StrokeThickness="0"
+                                    VerticalOptions="Fill"
+                                    HorizontalOptions="Fill">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SaveTaskCommand}" />
+                                </Border.GestureRecognizers>
+                                <Label Text="SALVESTA ÜLESANNE"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </Grid>
+
+                        <Border StrokeShape="RoundRectangle 16"
+                                BackgroundColor="#F3F4F6"
+                                StrokeThickness="0"
+                                HeightRequest="44">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CloseEditorCommand}" />
+                            </Border.GestureRecognizers>
+                            <Label Text="LOOBU"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   TextColor="#6B7280"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+    </Grid>
+
+</ContentPage>
